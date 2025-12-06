@@ -1,0 +1,134 @@
+{% extends "base.html" %}
+{% block title %}Dashboard – Disha Finance{% endblock %}
+
+{% block extra_css %}
+  {{ super() }}
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+{% endblock %}
+
+{% block extra_js %}
+  {{ super() }}
+  <!-- Chart.js for later (expenses, compound, overview) -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="{{ url_for('static', filename='js/expenses.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/compound.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/overview.js') }}"></script>
+{% endblock %}
+
+{% block content %}
+<section class="df-dash-wrapper">
+  <div class="container-fluid df">
+    <div class="row g-0">
+      <!-- Sidebar -->
+      <div class="col-12 col-md-3 col-lg-2 df-dash-sidebar">
+        <div class="df-dash-logo">
+  <span class="df-dash-logo-badge">DF</span>
+  <div class="df-dash-logo-text-wrap">
+    <span class="df-dash-logo-text">Disha Finance</span>
+    <span class="df-dash-logo-sub">Dashboard</span>
+  </div>
+</div>
+
+<div class="df-dash-user-card">
+  <div class="df-dash-user-avatar">
+    <img
+      src="{{ url_for('static', filename='uploads/avatars/' ~ (current_user.avatar_filename or 'default.jpg')) }}"
+      alt="{{ current_user.name or 'User' }}"
+    >
+  </div>
+  <div class="df-dash-user-meta">
+    <div class="df-dash-user-name">
+      {{ current_user.name or 'Your Name' }}
+    </div>
+    <div class="df-dash-user-email">
+      {{ current_user.email }}
+    </div>
+  </div>
+</div>
+
+
+
+        {% set active = request.endpoint %}
+        <nav class="df-dash-nav">
+          <a
+            href="{{ url_for('dashboard.profile') }}"
+            class="df-dash-nav-item {% if active == 'dashboard.profile' %}active{% endif %}"
+          >
+            <i class="lni lni-user"></i>
+            <span>Profile</span>
+          </a>
+
+          <a
+            href="{{ url_for('dashboard.expenses') }}"
+            class="df-dash-nav-item {% if active == 'dashboard.expenses' %}active{% endif %}"
+          >
+            <i class="lni lni-wallet"></i>
+            <span>Expense Calculator</span>
+          </a>
+
+          <a
+            href="{{ url_for('dashboard.compound') }}"
+            class="df-dash-nav-item {% if active == 'dashboard.compound' %}active{% endif %}"
+          >
+            <i class="lni lni-bar-chart"></i>
+            <span>Compound Interest</span>
+          </a>
+
+          <a
+            href="{{ url_for('dashboard.advisor') }}"
+            class="df-dash-nav-item {% if active == 'dashboard.advisor' %}active{% endif %}"
+          >
+            <i class="lni lni-bulb"></i>
+            <span>Investment Advisor</span>
+          </a>
+
+          <a
+            href="{{ url_for('dashboard.calendar') }}"
+            class="df-dash-nav-item {% if active == 'dashboard.calendar' %}active{% endif %}"
+          >
+            <i class="lni lni-calendar"></i>
+            <span>Calendar & Reminders</span>
+          </a>
+
+          <a
+            href="{{ url_for('dashboard.overview') }}"
+            class="df-dash-nav-item {% if active == 'dashboard.overview' %}active{% endif %}"
+          >
+            <i class="lni lni-stats-up"></i>
+            <span>Overview</span>
+          </a>
+        </nav>
+
+        <div class="df-dash-sidebar-footer">
+          <a href="{{ url_for('public.index') }}" class="df-dash-back-home">
+            ← Back to Home
+          </a>
+        </div>
+      </div>
+
+      <!-- Main content -->
+      <div class="col-12 col-md-9 col-lg-10 df-dash-main">
+        <div class="df-dash-main-inner">
+          {% block dashboard_header %}
+          <div class="df-dash-header">
+            <div>
+              <div class="df-dash-header-title">
+                {% block dashboard_title %}Dashboard{% endblock %}
+              </div>
+              <div class="df-dash-header-subtitle">
+                {% block dashboard_subtitle %}Manage your money tools in one place.{% endblock %}
+              </div>
+            </div>
+            <!-- Placeholder for future user info / quick stats -->
+          </div>
+          {% endblock %}
+
+          <div class="df-dash-content">
+            {% block dashboard_content %}{% endblock %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

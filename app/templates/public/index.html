@@ -1,0 +1,303 @@
+{% extends "base.html" %}
+{% block title %}Disha Finance – Take Control of Your Money{% endblock %}
+
+{% block content %}
+
+<!-- HERO SECTION -->
+<section class="hero-gradient">
+  <div class="hero-orbit"></div>
+  <div class="container position-relative">
+    <div class="row align-items-center">
+      <!-- Left: Text -->
+      <div class="col-lg-6 mb-5 mb-lg-0">
+        <div class="mb-3">
+          <div class="chip">
+            <span><i class="lni lni-bolt"></i></span>
+            Smart tools for everyday money decisions
+          </div>
+        </div>
+
+        <h1 class="hero-title mb-3">
+          Give your money a clear<br />
+          <span>direction with Disha</span>.
+        </h1>
+
+        <p class="hero-sub mb-4">
+          Track expenses, calculate future value, plan investments, and set reminders —
+          all in one clean dashboard designed for students, professionals, and families.
+        </p>
+
+        <div class="d-flex flex-wrap gap-2 gap-md-3 mb-4">
+          <a href="{{ url_for('auth.register') }}" class="btn df-cta-btn">
+            Open your dashboard
+          </a>
+          <a href="#features" class="btn df-cta-outline">
+            Explore the tools
+          </a>
+        </div>
+
+        <div class="hero-metrics">
+          <div class="hero-metric">
+            <h4>₹2.4L+</h4>
+            <div class="hero-badge">Average yearly tracked</div>
+          </div>
+          <div class="hero-metric">
+            <h4>3× faster</h4>
+            <div class="hero-badge">To understand cashflow</div>
+          </div>
+          <div class="hero-metric">
+            <h4>Zero jargon</h4>
+            <div class="hero-badge">Plain-language insights</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: Dashboard preview -->
+      <div class="col-lg-6">
+        <div class="hero-card">
+          <div class="preview-card">
+            <div class="preview-header">
+              <div>
+                <div class="tag-pill mb-1">Overview</div>
+                <div style="font-size: 0.9rem; color: #e5e7eb">
+                  Your month at a glance
+                </div>
+              </div>
+              <div class="d-flex align-items-center gap-2">
+                <span style="font-size: 0.75rem; color: #9ca3af">Live sync</span>
+                <div class="spark-dot"></div>
+              </div>
+            </div>
+
+            <div class="row g-3 mb-3">
+              <div class="col-6">
+                <div
+                  style="
+                    border-radius: 1rem;
+                    padding: 0.9rem;
+                    border: 1px solid rgba(129, 140, 248, 0.55);
+                    background: radial-gradient(circle at top left, rgba(79, 70, 229, 0.3), rgba(15, 23, 42, 0.95));
+                  "
+                >
+                  <div
+                    style="
+                      font-size: 0.75rem;
+                      text-transform: uppercase;
+                      letter-spacing: 0.08em;
+                      color: #c7d2fe;
+                    "
+                  >
+                    Expense Tracker
+                  </div>
+                  <div style="font-size: 1.25rem; font-weight: 600; margin-top: 0.1rem">
+                    ₹28,450
+                  </div>
+                  <div style="font-size: 0.8rem; color: #bbf7d0; margin-top: 0.2rem">
+                    Under your monthly cap ✅
+                  </div>
+                </div>
+              </div>
+              <div class="col-6">
+                <div
+                  style="
+                    border-radius: 1rem;
+                    padding: 0.9rem;
+                    border: 1px solid rgba(45, 212, 191, 0.55);
+                    background: radial-gradient(circle at top right, rgba(45, 212, 191, 0.2), rgba(15, 23, 42, 0.95));
+                  "
+                >
+                  <div
+                    style="
+                      font-size: 0.75rem;
+                      text-transform: uppercase;
+                      letter-spacing: 0.08em;
+                      color: #99f6e4;
+                    "
+                  >
+                    Investment growth
+                  </div>
+                  <div style="font-size: 1.25rem; font-weight: 600; margin-top: 0.1rem">
+                    +₹1,980
+                  </div>
+                  <div style="font-size: 0.8rem; color: #e5e7eb; margin-top: 0.2rem">
+                    SIP on track for goals
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div
+              style="
+                border-radius: 1rem;
+                border: 1px dashed rgba(148, 163, 184, 0.6);
+                padding: 0.75rem 0.85rem;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: 0.5rem;
+              "
+            >
+              <div>
+                <div style="font-size: 0.8rem; color: #9ca3af">
+                  Next 7 days
+                </div>
+                <div style="font-size: 0.92rem; color: #e5e7eb">
+                  2 EMIs • 1 bill reminder • 1 saving transfer
+                </div>
+              </div>
+              <button
+                type="button"
+                class="btn btn-sm df-cta-outline"
+                style="white-space: nowrap"
+              >
+                View calendar
+              </button>
+            </div>
+          </div>
+        </div>
+        <div
+          class="mt-3"
+          style="font-size: 0.75rem; color: #9ca3af; text-align: right"
+        >
+          *Sample data for illustration
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES SECTION -->
+<section class="df-section" id="features">
+  <div class="container">
+    <div class="text-center mb-4">
+      <h2 class="df-section-title">All your money tools, in one place</h2>
+      <p class="df-section-sub">
+        Six core modules help you understand today’s spending, tomorrow’s growth,
+        and the important dates in between.
+      </p>
+    </div>
+
+    <div class="row g-3 g-md-4">
+      <div class="col-md-4">
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="lni lni-wallet"></i>
+          </div>
+          <div class="feature-label">Expenses</div>
+          <h5 class="feature-title">Expense Calculator & Tracker</h5>
+          <p class="feature-text mb-2">
+            Log daily expenses, group them by category, and instantly see where
+            your money actually goes this month.
+          </p>
+          <p class="feature-text mb-0">
+            Visual summaries keep overspending in check before it’s too late.
+          </p>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="lni lni-bar-chart"></i>
+          </div>
+          <div class="feature-label">Growth</div>
+          <h5 class="feature-title">Compound Interest Planner</h5>
+          <p class="feature-text mb-2">
+            See how SIPs or lump sum investments grow over time, with detailed
+            breakdowns of principal vs. returns.
+          </p>
+          <p class="feature-text mb-0">
+            Adjust tenure, rate, and frequency to match your personal goals.
+          </p>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="lni lni-bulb"></i>
+          </div>
+          <div class="feature-label">Guidance</div>
+          <h5 class="feature-title">Investment Advisor Module</h5>
+          <p class="feature-text mb-0">
+            Get simple, rule-based suggestions based on your risk level and time
+            horizon — no confusing financial jargon.
+          </p>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="lni lni-calendar"></i>
+          </div>
+          <div class="feature-label">Reminders</div>
+          <h5 class="feature-title">Calendar & Reminder System</h5>
+          <p class="feature-text mb-0">
+            Attach EMIs, bills, and savings transfers to a calendar, and avoid
+            late fees with timely reminders.
+          </p>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="lni lni-stats-up"></i>
+          </div>
+          <div class="feature-label">Overview</div>
+          <h5 class="feature-title">Visual Statistics & Trends</h5>
+          <p class="feature-text mb-0">
+            Spot patterns in income, spending, and saving with clear charts.
+            Identify which months and categories need attention.
+          </p>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="lni lni-protection"></i>
+          </div>
+          <div class="feature-label">Access</div>
+          <h5 class="feature-title">Role-Based Dashboards</h5>
+          <p class="feature-text mb-0">
+            Customers see only their own data. Admins see aggregated stats —
+            never sensitive personal information.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA SECTION -->
+<section class="df-section pt-0 pb-5">
+  <div class="container">
+    <div
+      class="p-4 p-md-5 rounded-4"
+      style="
+        background: radial-gradient(circle at top left, #4f46e5, #312e81);
+        border: 1px solid rgba(191, 219, 254, 0.6);
+        box-shadow: 0 24px 70px rgba(30, 64, 175, 0.8);
+      "
+    >
+      <div class="row align-items-center">
+        <div class="col-md-8 mb-3 mb-md-0">
+          <h3 class="mb-2">Ready to give your money a direction?</h3>
+          <p class="mb-0" style="color: #e5e7eb; max-width: 30rem">
+            Start with your current month — log your expenses, set one simple goal,
+            and let Disha Finance guide the rest.
+          </p>
+        </div>
+        <div class="col-md-4 text-md-end">
+          <a href="{{ url_for('auth.register') }}" class="btn btn-light fw-semibold">
+            Start free &nbsp;→
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

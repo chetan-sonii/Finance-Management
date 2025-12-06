@@ -1,0 +1,124 @@
+{% extends "dashboard/layout.html" %}
+
+{% block dashboard_title %}Investment Advisor{% endblock %}
+{% block dashboard_subtitle %}
+Explore different investment options, understand their risk profiles, and jump to trusted resources for deeper research.
+{% endblock %}
+
+{% block dashboard_content %}
+<div class="df-adv-layout">
+  <!-- Intro + legend -->
+  <div class="row g-4 mb-3">
+    <div class="col-lg-8">
+      <div class="df-adv-card df-adv-intro-card">
+        <h3 class="df-adv-title">Build a diversified plan</h3>
+        <p class="df-adv-sub mb-0">
+          These cards give you a quick, jargon-free overview of common investment
+          options. Use them as a starting point and always verify with your own
+          research or a licensed financial advisor.
+        </p>
+      </div>
+    </div>
+    <div class="col-lg-4">
+      <div class="df-adv-card df-adv-legend-card">
+        <h3 class="df-adv-title mb-2">Risk legend</h3>
+        <ul class="df-adv-legend list-unstyled mb-0">
+          <li>
+            <span class="df-adv-pill df-adv-pill-low">Low</span>
+            <span class="df-adv-legend-text">Capital relatively stable, returns moderate.</span>
+          </li>
+          <li>
+            <span class="df-adv-pill df-adv-pill-medium">Medium</span>
+            <span class="df-adv-legend-text">Fluctuations possible, aim for higher growth.</span>
+          </li>
+          <li>
+            <span class="df-adv-pill df-adv-pill-high">High</span>
+            <span class="df-adv-legend-text">Large ups & downs, suitable for long-term and experienced investors.</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Advisor cards from DB -->
+  <div class="row g-4 df-adv-grid">
+    {% if options %}
+      {% for opt in options %}
+        <div class="col-md-6 col-xl-4">
+          <div class="df-adv-card df-adv-option-card">
+            <div class="df-adv-option-header">
+              <div class="df-adv-icon-wrap">
+                {% if opt.icon_class %}
+                  <i class="{{ opt.icon_class }}"></i>
+                {% else %}
+                  <i class="lni lni-investment"></i>
+                {% endif %}
+              </div>
+              <div>
+                <div class="df-adv-option-name">{{ opt.name }}</div>
+                {% if opt.tagline %}
+                  <div class="df-adv-option-tagline">{{ opt.tagline }}</div>
+                {% endif %}
+              </div>
+            </div>
+
+            {% if opt.section1_label or opt.section1_points %}
+              <div class="df-adv-section">
+                <div class="df-adv-section-label">
+                  {{ opt.section1_label or "Details" }}
+                </div>
+                <ul class="df-adv-list">
+                  {% for line in (opt.section1_points or "").splitlines() if line %}
+                    <li>{{ line }}</li>
+                  {% endfor %}
+                </ul>
+              </div>
+            {% endif %}
+
+            {% if opt.section2_label or opt.section2_points %}
+              <div class="df-adv-section">
+                <div class="df-adv-section-label">
+                  {{ opt.section2_label or "Notes" }}
+                </div>
+                <ul class="df-adv-list">
+                  {% for line in (opt.section2_points or "").splitlines() if line %}
+                    <li>{{ line }}</li>
+                  {% endfor %}
+                </ul>
+              </div>
+            {% endif %}
+
+            <div class="df-adv-footer">
+              {% if opt.risk_pill_text %}
+                <span class="df-adv-pill df-adv-pill-{{ opt.risk_pill_level or 'medium' }}">
+                  {{ opt.risk_pill_text }}
+                </span>
+              {% endif %}
+
+              {% if opt.external_url %}
+                <a
+                  href="{{ opt.external_url }}"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="btn btn-sm btn-outline-light df-adv-link-btn"
+                >
+                  {{ opt.external_label or "Learn more" }}
+                </a>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    {% else %}
+      <div class="col-12">
+        <div class="df-adv-card">
+          <p class="df-adv-sub mb-0">
+            No investment options have been configured yet. Ask an admin to add
+            options in the <strong>investment_options</strong> table.
+          </p>
+        </div>
+      </div>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

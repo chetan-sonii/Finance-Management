@@ -1,0 +1,178 @@
+{% extends "base.html" %}
+{% block title %}Contact – Disha Finance{% endblock %}
+
+{% block content %}
+
+<section class="df-section">
+  <div class="container">
+    <!-- Heading -->
+    <div class="row justify-content-center mb-4">
+      <div class="col-lg-8 text-center">
+        <div class="mb-2">
+          <div class="chip">
+            <span><i class="lni lni-support"></i></span>
+            We’re here to help
+          </div>
+        </div>
+        <h1 class="hero-title mb-3" style="font-size: 2.1rem;">
+          Contact <span>Disha Finance</span>
+        </h1>
+        <p class="df-section-sub">
+          Have a question about expenses, goals, or how to use the dashboard?
+          Reach out and we’ll get back to you with a clear, simple response.
+        </p>
+      </div>
+    </div>
+
+    <div class="row g-4">
+      <!-- Contact info -->
+      <div class="col-lg-4">
+        <div class="hero-card h-100">
+          <div class="preview-card">
+            <h5 class="mb-3" style="color:#e5e7eb;">Get in touch</h5>
+            <p style="color:#9ca3af; font-size:0.9rem;" class="mb-4">
+              Share your doubt, feedback, or suggestion. We’re happy to help
+              you make better money decisions.
+            </p>
+
+            <div class="d-flex align-items-start gap-3 mb-3">
+              <div class="feature-icon" style="margin-bottom: 0;">
+                <i class="lni lni-envelope"></i>
+              </div>
+              <div>
+                <div style="font-size:0.85rem; color:#9ca3af;">Email</div>
+                <div style="color:#e5e7eb;">support@dishafinance.com</div>
+              </div>
+            </div>
+
+            <div class="d-flex align-items-start gap-3 mb-3">
+              <div class="feature-icon" style="margin-bottom: 0;">
+                <i class="lni lni-phone"></i>
+              </div>
+              <div>
+                <div style="font-size:0.85rem; color:#9ca3af;">Phone</div>
+                <div style="color:#e5e7eb;">+91-98765-43210</div>
+              </div>
+            </div>
+
+            <div class="d-flex align-items-start gap-3 mb-3">
+              <div class="feature-icon" style="margin-bottom: 0;">
+                <i class="lni lni-map-marker"></i>
+              </div>
+              <div>
+                <div style="font-size:0.85rem; color:#9ca3af;">Location</div>
+                <div style="color:#e5e7eb;">Raipur, Chhattisgarh, India</div>
+              </div>
+            </div>
+
+            <div class="mt-4">
+              <div style="font-size:0.85rem; color:#9ca3af;">Support hours</div>
+              <div style="color:#e5e7eb;">
+                Monday – Saturday, 10:00 AM – 7:00 PM
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Contact form -->
+      <div class="col-lg-8">
+        <div class="hero-card h-100">
+          <div class="preview-card">
+            {% with messages = get_flashed_messages(with_categories=true) %}
+              {% if messages %}
+                {% for category, msg in messages %}
+                  <div class="alert alert-{{ 'success' if category == 'success' else 'info' }} mb-3" role="alert">
+                    {{ msg }}
+                  </div>
+                {% endfor %}
+              {% endif %}
+            {% endwith %}
+
+            <form
+              action="{{ url_for('public.contact') }}"
+              method="POST"
+              novalidate
+              class="row g-3"
+            >
+              <div class="col-md-6">
+                <label for="name" class="form-label">Full name</label>
+                <input
+                  type="text"
+                  name="name"
+                  id="name"
+                  class="form-control"
+                  placeholder="Enter your name"
+                  required
+                />
+              </div>
+
+              <div class="col-md-6">
+                <label for="email" class="form-label">Email address</label>
+                <input
+                  type="email"
+                  name="email"
+                  id="email"
+                  class="form-control"
+                  placeholder="you@example.com"
+                  required
+                />
+              </div>
+
+              <div class="col-md-6">
+                <label for="subject" class="form-label">Subject</label>
+                <input
+                  type="text"
+                  name="subject"
+                  id="subject"
+                  class="form-control"
+                  placeholder="What do you want to talk about?"
+                  required
+                />
+              </div>
+
+              <div class="col-md-6">
+                <label for="topic" class="form-label">Topic</label>
+                <select
+                  name="topic"
+                  id="topic"
+                  class="form-select"
+                >
+                  <option value="general">General question</option>
+                  <option value="account">Account / login issue</option>
+                  <option value="expenses">Expense tracking</option>
+                  <option value="investments">Investments & CI</option>
+                  <option value="feedback">Feedback / suggestion</option>
+                </select>
+              </div>
+
+              <div class="col-12">
+                <label for="message" class="form-label">Message</label>
+                <textarea
+                  name="message"
+                  id="message"
+                  rows="5"
+                  class="form-control"
+                  placeholder="Describe your question or issue in detail so we can help you better."
+                  required
+                ></textarea>
+              </div>
+
+              <div class="col-12 d-flex justify-content-between align-items-center">
+                <small style="color:#9ca3af;">
+                  We usually respond within one working day.
+                </small>
+                <button type="submit" class="btn df-cta-btn">
+                  Send message
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+{% endblock %}

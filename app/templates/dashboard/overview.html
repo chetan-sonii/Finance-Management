@@ -1,0 +1,125 @@
+{# templates/dashboard/overview.html #}
+{% extends "dashboard/layout.html" %}
+
+{% block dashboard_title %}Overview & Insights{% endblock %}
+{% block dashboard_subtitle %}
+A quick snapshot of your spending, upcoming reminders, and financial activity.
+{% endblock %}
+
+{% block dashboard_content %}
+<div class="df-ov-wrapper">
+
+  <!-- Stat cards -->
+  <div class="df-ov-stats-grid">
+    <div class="df-ov-stat-card">
+      <div class="df-ov-stat-label">This month’s spend</div>
+      <div class="df-ov-stat-value" id="df-ov-total-month">₹ 0</div>
+      <div class="df-ov-stat-meta" id="df-ov-month-change">
+        —
+      </div>
+    </div>
+
+    <div class="df-ov-stat-card">
+      <div class="df-ov-stat-label">Daily average</div>
+      <div class="df-ov-stat-value" id="df-ov-daily-avg">₹ 0</div>
+      <div class="df-ov-stat-meta">
+        Based on days passed this month.
+      </div>
+    </div>
+
+    <div class="df-ov-stat-card">
+      <div class="df-ov-stat-label">Active reminders</div>
+      <div class="df-ov-stat-value" id="df-ov-reminders-count">0</div>
+      <div class="df-ov-stat-meta" id="df-ov-next-reminder">
+        No upcoming reminders.
+      </div>
+    </div>
+
+    <div class="df-ov-stat-card">
+      <div class="df-ov-stat-label">Top spending category</div>
+      <div class="df-ov-stat-value" id="df-ov-top-category">—</div>
+      <div class="df-ov-stat-meta" id="df-ov-top-category-amount">
+        —
+      </div>
+    </div>
+  </div>
+
+  <!-- Charts row -->
+  <div class="df-ov-charts-grid">
+    <div class="df-ov-card">
+      <div class="df-ov-card-header">
+        <div>
+          <h3 class="df-ov-card-title">Spending trend</h3>
+          <p class="df-ov-card-subtitle">
+            Monthly totals for the last 6 months.
+          </p>
+        </div>
+      </div>
+      <div class="df-ov-card-body">
+        <canvas id="df-ov-expense-trend"></canvas>
+      </div>
+    </div>
+
+    <div class="df-ov-card">
+      <div class="df-ov-card-header">
+        <div>
+          <h3 class="df-ov-card-title">Category breakdown</h3>
+          <p class="df-ov-card-subtitle">
+            How this month’s expenses are distributed.
+          </p>
+        </div>
+        <div class="df-ov-chart-legend-hint">
+          Hover over the chart to see details.
+        </div>
+      </div>
+      <div class="df-ov-card-body df-ov-card-body--center">
+        <canvas id="df-ov-category-chart"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <!-- Lists row -->
+  <div class="df-ov-lists-grid">
+    <div class="df-ov-card">
+      <div class="df-ov-card-header">
+        <h3 class="df-ov-card-title">Upcoming reminders</h3>
+        <p class="df-ov-card-subtitle">
+          Next few payments, EMIs & bills to keep an eye on.
+        </p>
+      </div>
+      <div class="df-ov-card-body">
+        <ul class="df-ov-rem-list" id="df-ov-rem-list">
+          <li class="df-ov-rem-empty">No upcoming reminders in the next 30 days.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="df-ov-card">
+      <div class="df-ov-card-header">
+        <h3 class="df-ov-card-title">Recent expenses</h3>
+        <p class="df-ov-card-subtitle">
+          Latest entries you’ve added from the expense calculator.
+        </p>
+      </div>
+      <div class="df-ov-card-body">
+        <table class="df-ov-table">
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Category</th>
+              <th>Title</th>
+              <th class="text-end">Amount</th>
+            </tr>
+          </thead>
+          <tbody id="df-ov-expense-rows">
+            <tr class="df-ov-table-empty">
+              <td colspan="4">No recent expenses found.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+</div>
+{% endblock %}

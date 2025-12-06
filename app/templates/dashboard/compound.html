@@ -1,0 +1,190 @@
+{% extends "dashboard/layout.html" %}
+
+{% block dashboard_title %}Compound Interest Calculator{% endblock %}
+{% block dashboard_subtitle %}
+Project how your investments can grow over time with compound interest and regular contributions.
+{% endblock %}
+
+{% block dashboard_content %}
+<div class="row g-4 df-comp-layout">
+  <!-- Left: input form + summary -->
+  <div class="col-lg-5">
+    <div class="df-comp-card">
+      <h3 class="df-comp-title">Investment inputs</h3>
+      <p class="df-comp-sub">
+        Adjust these values to simulate different investment scenarios.
+      </p>
+
+      <form id="df-comp-form" class="df-comp-form" onsubmit="return false;">
+        <div class="row g-3">
+          <div class="col-md-12">
+            <label for="df-comp-principal" class="form-label df-comp-label">
+              Initial investment (₹)
+            </label>
+            <input
+              type="number"
+              class="form-control df-comp-input"
+              id="df-comp-principal"
+              min="0"
+              step="0.01"
+              value="100000"
+            />
+          </div>
+
+          <div class="col-md-6">
+            <label for="df-comp-rate" class="form-label df-comp-label">
+              Annual return (%)
+            </label>
+            <input
+              type="number"
+              class="form-control df-comp-input"
+              id="df-comp-rate"
+              min="0"
+              step="0.1"
+              value="10"
+            />
+          </div>
+
+          <div class="col-md-6">
+            <label for="df-comp-years" class="form-label df-comp-label">
+              Years to grow
+            </label>
+            <input
+              type="number"
+              class="form-control df-comp-input"
+              id="df-comp-years"
+              min="1"
+              step="1"
+              value="10"
+            />
+          </div>
+
+          <div class="col-md-6">
+            <label for="df-comp-frequency" class="form-label df-comp-label">
+              Compounding frequency
+            </label>
+            <select
+              id="df-comp-frequency"
+              class="form-select df-comp-input"
+            >
+              <option value="1">Annually</option>
+              <option value="4">Quarterly</option>
+              <option value="12" selected>Monthly</option>
+            </select>
+          </div>
+
+          <div class="col-md-6">
+            <label for="df-comp-contrib" class="form-label df-comp-label">
+              Monthly contribution (₹)
+            </label>
+            <input
+              type="number"
+              class="form-control df-comp-input"
+              id="df-comp-contrib"
+              min="0"
+              step="0.01"
+              value="5000"
+            />
+          </div>
+        </div>
+
+        <div class="df-comp-actions">
+          <button
+            type="button"
+            class="btn btn-sm df-cta-btn df-comp-calc-btn"
+          >
+            Calculate growth
+          </button>
+          <button
+            type="button"
+            class="btn btn-sm btn-outline-secondary df-comp-reset-btn"
+          >
+            Reset
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <div class="df-comp-card df-comp-summary-card mt-3">
+      <h3 class="df-comp-title mb-2">Results snapshot</h3>
+
+      <div class="df-comp-summary-grid">
+        <div>
+          <div class="df-comp-summary-label">Final value</div>
+          <div class="df-comp-summary-value" id="df-comp-maturity">
+            ₹ 0
+          </div>
+        </div>
+        <div>
+          <div class="df-comp-summary-label">Total invested</div>
+          <div class="df-comp-summary-value" id="df-comp-invested">
+            ₹ 0
+          </div>
+        </div>
+        <div>
+          <div class="df-comp-summary-label">Total interest earned</div>
+          <div class="df-comp-summary-value" id="df-comp-interest">
+            ₹ 0
+          </div>
+        </div>
+      </div>
+
+      <p class="df-comp-sub mt-2 mb-0">
+        These numbers assume consistent returns and contributions over the full
+        period. Real-world results will vary.
+      </p>
+    </div>
+  </div>
+
+  <!-- Right: chart + yearly breakdown -->
+  <div class="col-lg-7">
+    <div class="df-comp-card mb-3">
+      <div class="d-flex justify-content-between align-items-center mb-2">
+        <div>
+          <h3 class="df-comp-title mb-1">Growth over time</h3>
+          <p class="df-comp-sub mb-0">
+            See how your investment balance changes year by year.
+          </p>
+        </div>
+      </div>
+
+      <canvas id="df-comp-chart" height="220"></canvas>
+    </div>
+
+   <div class="df-comp-card df-comp-table-card">
+        <div class="d-flex justify-content-between align-items-center mb-2">
+          <div>
+            <h3 class="df-comp-title mb-0">Yearly breakdown</h3>
+            <span class="df-comp-table-hint">
+        Rounded values for a quick overview.
+      </span>
+          </div>
+          <button
+                  type="button"
+                  class="btn btn-sm btn-outline-light df-comp-export-btn"
+          >
+            Export CSV
+          </button>
+        </div>
+
+
+
+      <div class="table-responsive df-comp-table-wrap">
+        <table class="table table-borderless align-middle mb-0 df-comp-table">
+          <thead>
+            <tr>
+              <th>Year</th>
+              <th>Opening balance</th>
+              <th>Interest earned</th>
+              <th>Closing balance</th>
+            </tr>
+          </thead>
+          <tbody id="df-comp-tbody">
+            <!-- JS will insert rows here -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

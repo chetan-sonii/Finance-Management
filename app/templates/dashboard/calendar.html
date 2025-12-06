@@ -1,0 +1,255 @@
+{% extends "dashboard/layout.html" %}
+
+{% block dashboard_title %}Calendar & Reminders{% endblock %}
+{% block dashboard_subtitle %}
+Track important payment dates, EMIs and other financial reminders.
+{% endblock %}
+
+{% block extra_css %}
+  {{ super() }}
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/main.min.css"
+  >
+{% endblock %}
+
+{% block extra_js %}
+  {{ super() }}
+  <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js"></script>
+  <script src="{{ url_for('static', filename='js/reminders.js') }}"></script>
+{% endblock %}
+
+{% block dashboard_content %}
+{# pre-calc next reminder from sorted list #}
+{% set next_reminder = reminders[0] if reminders|length > 0 else None %}
+
+<div class="df-calendar-wrap">
+
+  <!-- Top summary row -->
+  <div class="df-cal-summary-row mb-3">
+    <div class="df-cal-summary-card">
+      <div class="df-cal-summary-label">Active reminders</div>
+      <div class="df-cal-summary-value">{{ reminders|length }}</div>
+      <div class="df-cal-summary-foot">Payments, EMIs & bills you’re tracking.</div>
+    </div>
+
+    <div class="df-cal-summary-card">
+      <div class="df-cal-summary-label">Next due</div>
+      {% if next_reminder %}
+        <div class="df-cal-summary-value">
+          {{ next_reminder.reminder_date.strftime("%d %b") }}
+        </div>
+        <div class="df-cal-summary-foot">
+          {{ next_reminder.title }}
+        </div>
+      {% else %}
+        <div class="df-cal-summary-value">—</div>
+        <div class="df-cal-summary-foot">No upcoming reminders yet.</div>
+      {% endif %}
+    </div>
+
+    <div class="df-cal-summary-card df-cal-summary-card--hint">
+      <div class="df-cal-summary-label">Tips</div>
+      <div class="df-cal-summary-foot">
+        • Click a date on the calendar to pre-fill the form. <br>
+        • Click an existing event or “Edit” to update it.
+      </div>
+    </div>
+  </div>
+
+  <!-- Main row: calendar + form -->
+  <div class="row g-4">
+    <!-- Calendar -->
+    <div class="col-lg-8">
+      <div class="df-card df-cal-card">
+        <div class="df-cal-card-header">
+          <div>
+            <div class="df-cal-card-title">Monthly calendar</div>
+            <div class="df-cal-card-sub">
+              Click on a date to quickly add a payment or reminder.
+            </div>
+          </div>
+        </div>
+
+        <div
+          id="df-calendar"
+          data-events-url="{{ url_for('dashboard.calendar_events') }}"
+        ></div>
+      </div>
+    </div>
+
+    <!-- Add / edit form -->
+    <div class="col-lg-4">
+      <div class="df-card df-cal-add">
+        <div class="d-flex justify-content-between align-items-center mb-1">
+          <h4 class="mb-0">Add new reminder</h4>
+          <span class="df-cal-pill">Payment / EMI / Bill</span>
+        </div>
+
+        <p class="df-cal-form-help" id="df-cal-form-help">
+          Create a new reminder. Click an event or “Edit” to modify an existing one.
+        </p>
+
+        <form
+          id="df-add-rem-form"
+          data-add-url="{{ url_for('dashboard.add_reminder') }}"
+        >
+          <input type="hidden" id="df-reminder-id" name="reminder_id">
+
+          <div class="mb-2">
+            <label class="form-label">Payment name</label>
+            <input
+              type="text"
+              name="title"
+              class="form-control df-cal-input"
+              placeholder="e.g. Credit card bill, Internet, SIP"
+              required
+            >
+          </div>
+
+          <div class="mb-2">
+            <label class="form-label">Notes</label>
+            <textarea
+              name="description"
+              class="form-control df-cal-input"
+              rows="2"
+              placeholder="Add details like amount, UPI ID, bank, etc."
+            ></textarea>
+          </div>
+
+          <div class="mb-2">
+            <label class="form-label d-flex justify-content-between align-items-center">
+              <span>Due date &amp; time</span>
+              <span class="df-cal-quick-label">Quick picks:</span>
+            </label>
+
+            <div class="df-cal-quick-row mb-1">
+              <button
+                type="button"
+                class="df-cal-quick df-quick-date"
+                data-days="0"
+              >
+                Today
+              </button>
+              <button
+                type="button"
+                class="df-cal-quick df-quick-date"
+                data-days="1"
+              >
+                Tomorrow
+              </button>
+              <button
+                type="button"
+                class="df-cal-quick df-quick-date"
+                data-days="7"
+              >
+                Next week
+              </button>
+            </div>
+
+            <input
+              type="datetime-local"
+              name="date"
+              class="form-control df-cal-input mt-1"
+              required
+            >
+            <div class="df-cal-small-help">
+              You can also click directly on a date in the calendar to pre-fill this field.
+            </div>
+          </div>
+
+          <div class="d-flex gap-2 mt-3">
+            <button
+              type="submit"
+              class="btn btn-primary w-100"
+              id="df-cal-submit-btn"
+            >
+              Save reminder
+            </button>
+            <button
+              type="button"
+              class="btn btn-outline-secondary d-none"
+              id="df-cal-cancel-edit"
+            >
+              Cancel
+            </button>
+          </div>
+        </form>
+      </div>
+      <div class="df-cal-daylist mt-3">
+  <div class="df-cal-daylist-header">
+    <span id="df-daylist-title">Reminders on selected date</span>
+    <span id="df-daylist-date" class="df-cal-daylist-date">None selected</span>
+  </div>
+  <ul class="df-cal-daylist-items" id="df-daylist-items">
+    <li class="df-cal-daylist-empty">
+      Click a date or event to see reminders for that day.
+    </li>
+  </ul>
+</div>
+
+    </div>
+  </div>
+
+  <!-- Upcoming list (full width, timeline style) -->
+  <div class="df-card df-cal-side df-cal-upcoming mt-4">
+    <div class="df-cal-side-title-row">
+      <h4 class="df-cal-side-title mb-0">Upcoming reminders</h4>
+      <span class="df-cal-side-count">
+        {{ reminders|length }} active
+      </span>
+    </div>
+
+    {% if reminders %}
+      <ul class="df-rem-list">
+        {% for r in reminders %}
+          <li>
+            <div class="df-rem-row-top">
+              <div>
+                <div class="df-rem-title">{{ r.title }}</div>
+                <div class="df-rem-date">
+                  {{ r.reminder_date.strftime("%d %b %Y, %I:%M %p") }}
+                </div>
+              </div>
+              <span class="df-rem-badge">
+                {{ r.reminder_date.strftime("%d %b") }}
+              </span>
+            </div>
+
+            {% if r.description %}
+              <div class="df-rem-note">
+                {{ r.description }}
+              </div>
+            {% endif %}
+
+            <div class="df-rem-actions">
+              <button
+                type="button"
+                class="btn btn-sm btn-outline-info df-edit-rem"
+                data-id="{{ r.id }}"
+                data-title="{{ r.title }}"
+                data-desc="{{ r.description }}"
+                data-date="{{ r.reminder_date.isoformat() }}"
+              >
+                Edit
+              </button>
+              <button
+                type="button"
+                class="btn btn-sm btn-outline-danger df-del-rem"
+                data-id="{{ r.id }}"
+              >
+                Delete
+              </button>
+            </div>
+          </li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p class="df-empty mb-0">
+        No reminders added yet. Start by creating your first payment reminder.
+      </p>
+    {% endif %}
+  </div>
+
+</div>
+{% endblock %}

@@ -1,0 +1,248 @@
+{% extends "dashboard/layout.html" %}
+
+{% block dashboard_title %}Expense Calculator{% endblock %}
+{% block dashboard_subtitle %}
+Plan and track your monthly expenses. Add categories, adjust amounts, and see where your money goes.
+{% endblock %}
+
+{% block dashboard_content %}
+<div class="row g-4">
+  <!-- Left side: table + controls -->
+  <div class="col-lg-7">
+    <div class="df-exp-card">
+      <div class="df-exp-card-header">
+        <div>
+          <h3 class="df-exp-title">Monthly expenses</h3>
+          <p class="df-exp-sub">
+            Add or edit expense categories, then calculate to see totals and charts.
+          </p>
+        </div>
+
+        <button type="button" class="btn btn-sm btn-outline-light df-exp-add-row">
+          + Add row
+        </button>
+      </div>
+
+      <!-- Form that will be submitted to save expenses -->
+      <form
+        id="df-exp-form"
+        method="POST"
+        action="{{ url_for('dashboard.save_expenses') }}"
+      >
+        <div class="table-responsive df-exp-table-wrap">
+          <table class="table table-borderless align-middle mb-0 df-exp-table">
+            <thead>
+              <tr>
+                <th style="width: 55%;">Expense type</th>
+                <th style="width: 30%;">Amount (₹)</th>
+                <th style="width: 15%;"></th>
+              </tr>
+            </thead>
+            <tbody id="df-exp-rows">
+              <!-- Default rows -->
+              <tr class="df-exp-row">
+                <td>
+                  <input
+                    type="text"
+                    class="form-control df-exp-type"
+                    name="types[]"
+                    value="Rent"
+                  />
+                </td>
+                <td>
+                  <input
+                    type="number"
+                    min="0"
+                    step="0.01"
+                    class="form-control df-exp-amount"
+                    name="amounts[]"
+                    value="8000"
+                  />
+                </td>
+                <td class="text-end">
+                  <button
+                    type="button"
+                    class="btn btn-sm btn-outline-secondary df-exp-remove-row"
+                  >
+                    ✕
+                  </button>
+                </td>
+              </tr>
+              <tr class="df-exp-row">
+                <td>
+                  <input
+                    type="text"
+                    class="form-control df-exp-type"
+                    name="types[]"
+                    value="Food & groceries"
+                  />
+                </td>
+                <td>
+                  <input
+                    type="number"
+                    min="0"
+                    step="0.01"
+                    class="form-control df-exp-amount"
+                    name="amounts[]"
+                    value="5000"
+                  />
+                </td>
+                <td class="text-end">
+                  <button
+                    type="button"
+                    class="btn btn-sm btn-outline-secondary df-exp-remove-row"
+                  >
+                    ✕
+                  </button>
+                </td>
+              </tr>
+              <tr class="df-exp-row">
+                <td>
+                  <input
+                    type="text"
+                    class="form-control df-exp-type"
+                    name="types[]"
+                    value="Transport"
+                  />
+                </td>
+                <td>
+                  <input
+                    type="number"
+                    min="0"
+                    step="0.01"
+                    class="form-control df-exp-amount"
+                    name="amounts[]"
+                    value="2000"
+                  />
+                </td>
+                <td class="text-end">
+                  <button
+                    type="button"
+                    class="btn btn-sm btn-outline-secondary df-exp-remove-row"
+                  >
+                    ✕
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="df-exp-actions">
+          <button type="button" class="btn btn-sm df-cta-btn df-exp-calc">
+            CALCULATE TOTAL
+          </button>
+
+          <button type="submit" class="btn btn-sm df-cta-btn df-exp-save-btn">
+            Save expenses
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Right side: summary + chart -->
+  <div class="col-lg-5">
+    <!-- Summary card -->
+    <div class="df-exp-card mb-3">
+      <div class="d-flex justify-content-between align-items-center mb-2">
+        <div>
+          <h3 class="df-exp-title mb-1">Summary</h3>
+          <p class="df-exp-sub mb-0">
+            A quick snapshot of your monthly outflow based on the rows you enter.
+          </p>
+        </div>
+      </div>
+
+      <div class="df-exp-summary">
+        <div>
+          <div class="df-exp-summary-label">Total expenses</div>
+          <div class="df-exp-summary-value" id="df-exp-total">₹ 0</div>
+        </div>
+        <div>
+          <div class="df-exp-summary-label">Active categories</div>
+          <div class="df-exp-summary-value" id="df-exp-categories">0</div>
+        </div>
+      </div>
+
+      <small class="text-muted" style="font-size: 0.8rem;">
+        Tip: Try grouping similar spends together (e.g. “Subscriptions”, “EMIs”, “Leisure”)
+        to see a clearer distribution.
+      </small>
+    </div>
+
+    <!-- Chart card -->
+    <div class="df-exp-card">
+      <div class="d-flex justify-content-between align-items-center mb-2">
+        <div>
+          <h3 class="df-exp-title mb-1">Visual breakdown</h3>
+          <p class="df-exp-sub mb-0">
+            Choose a chart type to analyse how your spending is distributed.
+          </p>
+        </div>
+        <div class="btn-group df-exp-chart-toggle" role="group" aria-label="Chart type">
+          <button
+            type="button"
+            class="btn btn-sm btn-outline-light active"
+            data-chart-type="pie"
+          >
+            Pie
+          </button>
+          <button
+            type="button"
+            class="btn btn-sm btn-outline-light"
+            data-chart-type="doughnut"
+          >
+            Doughnut
+          </button>
+          <button
+            type="button"
+            class="btn btn-sm btn-outline-light"
+            data-chart-type="bar"
+          >
+            Bar
+          </button>
+        </div>
+      </div>
+
+      <canvas id="expensesChartMain" height="190"></canvas>
+    </div>
+  </div>
+</div>
+    {% if history %}
+    <div class="df-exp-card mt-3">
+      <h3 class="df-exp-title mb-1">Saved months</h3>
+      <p class="df-exp-sub mb-2">
+        Recent months where you've saved expense data from this calculator.
+      </p>
+
+      <ul class="df-exp-history list-unstyled mb-0">
+        {% for item in history %}
+          <li class="df-exp-history-item">
+            <div>
+              <div class="df-exp-history-period">
+                {{ item.date.strftime("%b %Y") }}
+              </div>
+              <div class="df-exp-history-date">
+                Period key: {{ item.period }} · Saved on {{ item.date.strftime("%d %b %Y") }}
+              </div>
+            </div>
+            <div class="text-end">
+              <div class="df-exp-history-amount">
+                ₹ {{ "%.2f"|format(item.total) }}
+              </div>
+              <div class="df-exp-history-links">
+                <a
+                  href="{{ url_for('dashboard.expenses_export_csv', period=item.period) }}"
+                >
+                  Export CSV
+                </a>
+              </div>
+            </div>
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+    {% endif %}
+
+{% endblock %}

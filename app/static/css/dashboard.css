@@ -1,0 +1,1442 @@
+.df-dash-wrapper {
+  padding-top: 1rem;
+  padding-bottom: 1.5rem;
+}
+
+.df-dash-sidebar {
+  min-height: calc(100vh - 76px);
+  background: #020617;
+  border-right: 1px solid rgba(148, 163, 184, 0.25);
+  padding: 1.25rem 1rem;
+}
+
+.df-dash-main {
+  min-height: calc(100vh - 76px);
+  background: radial-gradient(circle at top, #020617, #020617 60%);
+}
+
+.df-dash-main-inner {
+  padding: 1.5rem 1.5rem 2rem;
+}
+
+/* Logo area */
+.df-dash-logo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.df-dash-logo-badge {
+  width: 32px;
+  height: 32px;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #f9fafb;
+  background: radial-gradient(circle at 30% 0, #f472b6, #a21caf);
+  box-shadow:
+    0 0 0 1px rgba(244, 114, 182, 0.5),
+    0 12px 26px rgba(236, 72, 153, 0.6);
+}
+
+.df-dash-logo-text {
+  font-size: 0.9rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #e5e7eb;
+}
+
+/* Sidebar nav */
+.df-dash-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.df-dash-nav-item {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.55rem 0.75rem;
+  border-radius: 0.75rem;
+  font-size: 0.9rem;
+  color: #e5e7eb;
+  text-decoration: none;
+  opacity: 0.78;
+  transition:
+    background 0.2s ease,
+    opacity 0.2s ease,
+    transform 0.15s ease,
+    box-shadow 0.2s ease;
+}
+
+.df-dash-nav-item i {
+  font-size: 1.1rem;
+}
+
+.df-dash-nav-item:hover {
+  opacity: 1;
+  background: rgba(15, 23, 42, 0.9);
+}
+
+.df-dash-nav-item.active {
+  opacity: 1;
+  background: radial-gradient(circle at left, rgba(236, 72, 153, 0.20), rgba(15, 23, 42, 0.98));
+  box-shadow: 0 14px 36px rgba(236, 72, 153, 0.4);
+  border: 1px solid rgba(244, 114, 182, 0.8);
+}
+
+/* Sidebar footer */
+.df-dash-sidebar-footer {
+  margin-top: 2rem;
+  font-size: 0.85rem;
+}
+
+.df-dash-back-home {
+  color: #f9a8d4;
+  text-decoration: none;
+}
+
+.df-dash-back-home:hover {
+  text-decoration: underline;
+}
+
+/* Header */
+.df-dash-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.df-dash-header-title {
+  font-size: 1.4rem;
+  font-weight: 600;
+}
+
+.df-dash-header-subtitle {
+  font-size: 0.9rem;
+  color: #9ca3af;
+}
+
+/* Content */
+.df-dash-content {
+  border-radius: 1.25rem;
+  border: 1px solid rgba(148, 163, 184, 0.25);
+  background: radial-gradient(circle at top left, rgba(15, 23, 42, 0.96), rgba(15, 23, 42, 0.92));
+  padding: 1.5rem;
+}
+
+/* Responsive */
+@media (max-width: 767.98px) {
+  .df-dash-sidebar {
+    min-height: auto;
+    border-right: none;
+    border-bottom: 1px solid rgba(148, 163, 184, 0.25);
+    margin-bottom: 1rem;
+  }
+
+  .df-dash-main-inner {
+    padding: 1rem 1rem 1.5rem;
+  }
+}
+.df-dash-avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 2px solid #ff4df0; /* magenta theme */
+    margin-right: 10px;
+    display: inline-block;
+}
+
+.df-dash-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+/* Logo area */
+.df-dash-logo {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: 1.25rem;
+}
+
+.df-dash-logo-text-wrap {
+  display: flex;
+  flex-direction: column;
+}
+
+.df-dash-logo-text {
+  font-size: 0.9rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #e5e7eb;
+}
+
+.df-dash-logo-sub {
+  font-size: 0.75rem;
+  color: #9ca3af;
+}
+
+/* User card under logo */
+.df-dash-user-card {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.65rem 0.75rem;
+  margin-bottom: 1.5rem;
+  border-radius: 0.9rem;
+  background: radial-gradient(circle at top left, rgba(15, 23, 42, 0.98), rgba(15, 23, 42, 0.92));
+  border: 1px solid rgba(148, 163, 184, 0.4);
+}
+
+.df-dash-user-avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 999px;
+  overflow: hidden;
+  flex-shrink: 0;
+  border: 2px solid rgba(244, 114, 182, 0.9); /* magenta border */
+  box-shadow:
+    0 0 0 1px rgba(15, 23, 42, 0.9),
+    0 10px 30px rgba(236, 72, 153, 0.5);
+}
+
+.df-dash-user-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.df-dash-user-meta {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.df-dash-user-name {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #f9fafb;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.df-dash-user-email {
+  font-size: 0.75rem;
+  color: #9ca3af;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+
+/* Profile cards */
+.df-profile-card {
+  border-radius: 1.1rem;
+  border: 1px solid rgba(148, 163, 184, 0.4);
+  padding: 1.2rem 1.3rem;
+  background: radial-gradient(circle at top left, rgba(15, 23, 42, 0.98), rgba(15, 23, 42, 0.94));
+}
+
+.df-profile-avatar-wrap {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 0.75rem;
+}
+
+.df-profile-avatar {
+  width: 96px;
+  height: 96px;
+  border-radius: 999px;
+  overflow: hidden;
+  border: 2px solid rgba(244, 114, 182, 0.9);
+  box-shadow:
+    0 0 0 2px rgba(15, 23, 42, 0.9),
+    0 18px 40px rgba(236, 72, 153, 0.55);
+}
+
+.df-profile-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.df-profile-main-info {
+  text-align: center;
+  margin-bottom: 0.5rem;
+}
+
+.df-profile-name {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 0.1rem;
+}
+
+.df-profile-email,
+.df-profile-phone,
+.df-profile-role {
+  font-size: 0.85rem;
+  color: #9ca3af;
+}
+
+.df-profile-role {
+  text-transform: capitalize;
+}
+
+.df-profile-separator {
+  border-color: rgba(55, 65, 81, 0.7);
+  margin: 0.9rem 0;
+}
+
+.df-profile-meta {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.5rem;
+  font-size: 0.8rem;
+}
+
+.df-profile-meta-label {
+  color: #9ca3af;
+}
+
+.df-profile-meta-value {
+  color: #e5e7eb;
+}
+
+/* Headings */
+.df-profile-section-title {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+}
+
+.df-profile-section-sub {
+  font-size: 0.85rem;
+  color: #9ca3af;
+  margin-bottom: 0.75rem;
+}
+
+/* Danger card */
+.df-profile-danger {
+  border-color: rgba(248, 113, 113, 0.6);
+  background: radial-gradient(circle at top left, rgba(30, 7, 20, 0.96), rgba(15, 23, 42, 0.96));
+}
+
+
+
+
+/* Expense calculator */
+.df-exp-card {
+  border-radius: 1.1rem;
+  border: 1px solid rgba(148, 163, 184, 0.4);
+  padding: 1.2rem 1.3rem;
+  background: radial-gradient(
+    circle at top left,
+    rgba(15, 23, 42, 0.98),
+    rgba(15, 23, 42, 0.94)
+  );
+}
+
+.df-exp-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.75rem;
+}
+
+.df-exp-title {
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.df-exp-sub {
+  font-size: 0.85rem;
+  color: #9ca3af;
+}
+
+/* Table + inputs */
+.df-exp-table-wrap {
+  margin-top: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.df-exp-table thead th {
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: #9ca3af;
+  border-bottom-color: rgba(55, 65, 81, 0.8);
+}
+
+.df-exp-table tbody td {
+  padding-top: 0.35rem;
+  padding-bottom: 0.35rem;
+}
+
+/* Dark theme inputs just inside the expense table */
+.df-exp-table .form-control {
+  background-color: #020617;
+  border-color: rgba(55, 65, 81, 0.8);
+  color: #e5e7eb;
+  font-size: 0.9rem;
+}
+
+.df-exp-table .form-control:focus {
+  background-color: #020617;
+  color: #f9fafb;
+  border-color: rgba(236, 72, 153, 0.9);
+  box-shadow: 0 0 0 1px rgba(236, 72, 153, 0.6);
+}
+
+/* Actions row */
+.df-exp-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: 0.75rem;
+}
+
+/* Header add row button */
+.df-exp-card-header .df-exp-add-row {
+  font-size: 0.8rem;
+  border-radius: 999px;
+  border-color: rgba(148, 163, 184, 0.7);
+}
+
+/* Save button – match theme and make it pop */
+.df-exp-save-btn {
+  border-radius: 999px;
+  padding-inline: 1.3rem;
+}
+
+/* Summary card */
+.df-exp-summary {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.df-exp-summary-label {
+  font-size: 0.8rem;
+  color: #9ca3af;
+}
+
+.df-exp-summary-value {
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+/* Chart toggle buttons */
+.df-exp-chart-toggle .btn {
+  font-size: 0.8rem;
+  border-radius: 999px;
+  padding-inline: 0.9rem;
+}
+
+.df-exp-chart-toggle .btn.active {
+  background: linear-gradient(90deg, #6366f1, #ec4899);
+  border-color: transparent;
+  color: #f9fafb;
+  box-shadow: 0 0 20px rgba(129, 140, 248, 0.4);
+}
+
+/* Responsive adjustments */
+@media (max-width: 767.98px) {
+  .df-exp-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .df-exp-save-btn {
+    width: 100%;
+    text-align: center;
+  }
+
+  .df-exp-summary {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .df-exp-chart-toggle {
+    margin-top: 0.5rem;
+  }
+}
+
+/* Expense history list */
+.df-exp-history {
+  margin-top: 0.25rem;
+}
+
+.df-exp-history-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 0.55rem 0;
+  border-top: 1px solid rgba(55, 65, 81, 0.7);
+}
+
+.df-exp-history-item:first-child {
+  border-top: none;
+}
+
+.df-exp-history-period {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #e5e7eb;
+}
+
+.df-exp-history-date {
+  font-size: 0.75rem;
+  color: #9ca3af;
+}
+
+.df-exp-history-amount {
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.df-exp-history-links a {
+  font-size: 0.75rem;
+  color: #a5b4fc;
+  text-decoration: none;
+}
+
+.df-exp-history-links a:hover {
+  text-decoration: underline;
+}
+
+
+/* Wrapper: make sure we account for navbar height */
+.df-dash-wrapper {
+  padding-top: 2rem; /* tweak if needed to match spacing below navbar */
+}
+
+/* Make the sidebar stick on scroll */
+.df-dash-sidebar {
+  position: sticky;
+  top: 80px; /* approx navbar height + a bit of gap; adjust if off */
+  align-self: flex-start;
+  max-height: calc(100vh - 90px); /* viewport height minus top offset/footer gap */
+  overflow-y: auto;
+  padding-bottom: 1.5rem;
+}
+
+/* Ensure the row lets items size independently (so sticky works nicely) */
+.df-dash-wrapper .row {
+  align-items: flex-start;
+}
+
+
+
+
+/* CI */
+/* ===========================
+   Compound Interest tab
+   =========================== */
+
+.df-comp-layout {
+  align-items: flex-start;
+}
+
+.df-comp-card {
+  border-radius: 1.1rem;
+  border: 1px solid rgba(148, 163, 184, 0.4);
+  padding: 1.2rem 1.3rem;
+  background: radial-gradient(
+    circle at top left,
+    rgba(15, 23, 42, 0.98),
+    rgba(15, 23, 42, 0.94)
+  );
+}
+
+.df-comp-title {
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.df-comp-sub {
+  font-size: 0.85rem;
+  color: #9ca3af;
+}
+
+/* Inputs */
+.df-comp-label {
+  font-size: 0.8rem;
+  color: #e5e7eb;
+  margin-bottom: 0.25rem;
+}
+
+.df-comp-input {
+  background-color: #020617;
+  border-color: rgba(55, 65, 81, 0.8);
+  color: #e5e7eb;
+  font-size: 0.9rem;
+}
+
+.df-comp-input:focus {
+  background-color: #020617;
+  color: #f9fafb;
+  border-color: rgba(236, 72, 153, 0.9);
+  box-shadow: 0 0 0 1px rgba(236, 72, 153, 0.6);
+}
+
+.df-comp-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+
+.df-comp-reset-btn {
+  border-radius: 999px;
+  padding-inline: 1.1rem;
+}
+
+/* Summary card */
+.df-comp-summary-card {
+  margin-top: 1.1rem;
+}
+
+.df-comp-summary-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.75rem;
+}
+
+.df-comp-summary-label {
+  font-size: 0.8rem;
+  color: #9ca3af;
+}
+
+.df-comp-summary-value {
+  font-size: 1.05rem;
+  font-weight: 600;
+}
+
+/* Table */
+.df-comp-table-card {
+  margin-top: 0.75rem;
+}
+
+.df-comp-table-hint {
+  font-size: 0.75rem;
+  color: #9ca3af;
+}
+
+.df-comp-table-wrap {
+  margin-top: 0.25rem;
+}
+
+.df-comp-table thead th {
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: #9ca3af;
+  border-bottom-color: rgba(55, 65, 81, 0.8);
+}
+
+.df-comp-table tbody td {
+  padding-top: 0.35rem;
+  padding-bottom: 0.35rem;
+  font-size: 0.82rem;
+}
+
+/* Responsive tweaks */
+@media (max-width: 991.98px) {
+  .df-comp-summary-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .df-comp-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .df-comp-reset-btn {
+    width: 100%;
+    text-align: center;
+  }
+}
+.df-comp-export-btn {
+  font-size: 0.8rem;
+  border-radius: 999px;
+  padding-inline: 1rem;
+}
+
+
+
+
+/* Advisor */
+
+/* ===========================
+   Investment Advisor tab
+   =========================== */
+
+.df-adv-layout {
+  align-items: flex-start;
+}
+
+/* Generic card */
+.df-adv-card {
+  border-radius: 1.1rem;
+  border: 1px solid rgba(148, 163, 184, 0.4);
+  padding: 1.1rem 1.25rem;
+  background: radial-gradient(
+    circle at top left,
+    rgba(15, 23, 42, 0.98),
+    rgba(15, 23, 42, 0.94)
+  );
+}
+
+.df-adv-title {
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.df-adv-sub {
+  font-size: 0.85rem;
+  color: #9ca3af;
+}
+
+/* Intro & legend */
+.df-adv-legend {
+  margin: 0;
+}
+
+.df-adv-legend li {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.78rem;
+  padding: 0.25rem 0;
+}
+
+.df-adv-legend-text {
+  color: #9ca3af;
+}
+
+/* Pills */
+.df-adv-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.15rem 0.7rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  border: 1px solid transparent;
+}
+
+.df-adv-pill-low {
+  background: rgba(34, 197, 94, 0.15);
+  border-color: rgba(34, 197, 94, 0.5);
+  color: #bbf7d0;
+}
+
+.df-adv-pill-medium {
+  background: rgba(251, 191, 36, 0.15);
+  border-color: rgba(251, 191, 36, 0.5);
+  color: #facc15;
+}
+
+.df-adv-pill-high {
+  background: rgba(239, 68, 68, 0.15);
+  border-color: rgba(239, 68, 68, 0.5);
+  color: #fecaca;
+}
+
+/* Option cards */
+.df-adv-option-card {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.df-adv-option-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.7rem;
+  margin-bottom: 0.2rem;
+}
+
+.df-adv-icon-wrap {
+  width: 2.4rem;
+  height: 2.4rem;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(circle at top, #6366f1, #ec4899);
+  box-shadow: 0 0 18px rgba(129, 140, 248, 0.6);
+  flex-shrink: 0;
+}
+
+.df-adv-icon-wrap i {
+  font-size: 1.1rem;
+  color: #f9fafb;
+}
+
+.df-adv-option-name {
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+.df-adv-option-tagline {
+  font-size: 0.76rem;
+  color: #9ca3af;
+}
+
+.df-adv-section {
+  margin-top: 0.3rem;
+}
+
+.df-adv-section-label {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: #e5e7eb;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  margin-bottom: 0.1rem;
+}
+
+.df-adv-list {
+  padding-left: 1.1rem;
+  margin-bottom: 0;
+}
+
+.df-adv-list li {
+  font-size: 0.78rem;
+  color: #cbd5f5;
+  margin-bottom: 0.1rem;
+}
+
+/* Card footer */
+.df-adv-footer {
+  margin-top: 0.4rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.df-adv-link-btn {
+  font-size: 0.78rem;
+  border-radius: 999px;
+  padding-inline: 0.9rem;
+}
+
+/* Responsive */
+@media (max-width: 991.98px) {
+  .df-adv-footer {
+    flex-direction: row;
+    align-items: center;
+  }
+}
+
+@media (max-width: 767.98px) {
+  .df-adv-footer {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .df-adv-link-btn {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+
+
+/* ===========================
+   Calendar & Reminders tab
+   =========================== */
+
+.df-calendar-wrap {
+  margin-top: 0.5rem;
+}
+
+/* Top summary row */
+.df-cal-summary-row {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.75rem;
+}
+
+.df-cal-summary-card {
+  background: radial-gradient(
+    circle at top left,
+    rgba(15, 23, 42, 0.98),
+    rgba(15, 23, 42, 0.94)
+  );
+  border-radius: 1rem;
+  padding: 0.7rem 0.9rem;
+  border: 1px solid rgba(148, 163, 184, 0.35);
+}
+
+.df-cal-summary-card--hint {
+  grid-column: span 1;
+}
+
+.df-cal-summary-label {
+  font-size: 0.78rem;
+  color: #9ca3af;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-bottom: 0.2rem;
+}
+
+.df-cal-summary-value {
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.df-cal-summary-foot {
+  font-size: 0.8rem;
+  color: #9ca3af;
+}
+
+/* Cards */
+.df-cal-card,
+.df-cal-side,
+.df-cal-add {
+  background: radial-gradient(
+    circle at top left,
+    rgba(15, 23, 42, 0.98),
+    rgba(15, 23, 42, 0.94)
+  );
+  border-radius: 1.2rem;
+  padding: 1rem 1.1rem;
+  border: 1px solid rgba(148, 163, 184, 0.35);
+}
+
+.df-cal-card {
+  padding: 1.25rem 1.5rem 1.5rem;
+}
+
+.df-cal-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.75rem;
+}
+
+.df-cal-card-title {
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+.df-cal-card-sub {
+  font-size: 0.78rem;
+  color: #9ca3af;
+}
+
+/* Sidebar cards */
+.df-cal-add h4 {
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.df-cal-form-help {
+  font-size: 0.78rem;
+  color: #9ca3af;
+  margin-bottom: 0.4rem;
+}
+
+/* Upcoming list */
+.df-cal-side-title-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.df-cal-side-title {
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+.df-cal-side-count {
+  font-size: 0.75rem;
+  color: #a5b4fc;
+}
+
+.df-rem-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.df-rem-list li {
+  padding: 0.6rem 0.3rem;
+  border-bottom: 1px dashed rgba(148, 163, 184, 0.4);
+}
+
+.df-rem-list li:last-child {
+  border-bottom: none;
+}
+
+.df-rem-row-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.df-rem-title {
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.df-rem-badge {
+  font-size: 0.7rem;
+  padding: 0.1rem 0.55rem;
+  border-radius: 999px;
+  border: 1px solid rgba(129, 140, 248, 0.85);
+  color: #a5b4fc;
+}
+
+.df-rem-date {
+  font-size: 0.78rem;
+  color: #9ca3af;
+}
+
+.df-rem-note {
+  font-size: 0.78rem;
+  margin-top: 0.15rem;
+  color: #e5e7eb;
+}
+
+.df-rem-actions {
+  margin-top: 0.4rem;
+  display: flex;
+  gap: 0.35rem;
+}
+
+/* Form inputs */
+.df-cal-pill {
+  font-size: 0.7rem;
+  padding: 0.1rem 0.6rem;
+  border-radius: 999px;
+  border: 1px solid rgba(236, 72, 153, 0.7);
+  color: #f9a8d4;
+}
+
+.df-cal-input {
+  font-size: 0.85rem;
+  background: rgba(15, 23, 42, 0.98);
+  border-color: rgba(148, 163, 184, 0.6);
+  color: #f9fafb !important;
+}
+
+.df-cal-input:focus {
+  background: rgba(15, 23, 42, 0.98);
+  border-color: #6366f1;
+  box-shadow: 0 0 0 1px rgba(99, 102, 241, 0.6);
+  color: #f9fafb !important;
+}
+
+.df-cal-input::placeholder {
+  color: #9ca3af;
+  opacity: 1;
+}
+
+.df-cal-quick-label {
+  font-size: 0.75rem;
+  color: #9ca3af;
+}
+
+.df-cal-quick-row {
+  display: flex;
+  gap: 0.4rem;
+}
+
+.df-cal-quick {
+  border: none;
+  border-radius: 999px;
+  padding: 0.15rem 0.7rem;
+  font-size: 0.75rem;
+  background: rgba(30, 64, 175, 0.7);
+  color: #e5e7eb;
+  cursor: pointer;
+}
+
+.df-cal-quick:hover {
+  background: rgba(129, 140, 248, 0.95);
+}
+
+.df-cal-small-help {
+  font-size: 0.72rem;
+  color: #9ca3af;
+  margin-top: 0.25rem;
+}
+
+.df-empty {
+  font-size: 0.8rem;
+  color: #9ca3af;
+}
+
+/* FullCalendar hover / styling */
+.fc .fc-daygrid-day-number {
+  color: #e5e7eb;
+}
+
+.fc .fc-toolbar-title {
+  font-size: 1rem;
+}
+
+.fc .fc-button {
+  background: rgba(30, 64, 175, 0.8);
+  border: none;
+  font-size: 0.75rem;
+}
+
+.fc .fc-button:hover {
+  background: rgba(129, 140, 248, 0.95);
+}
+
+.fc .fc-button-primary:disabled {
+  background: rgba(55, 65, 81, 0.8);
+}
+
+/* Day hover effect */
+.fc .fc-daygrid-day-frame {
+  transition: background 0.15s ease, box-shadow 0.15s ease,
+    transform 0.08s ease;
+}
+
+.fc .fc-daygrid-day:hover .fc-daygrid-day-frame {
+  background: rgba(31, 41, 55, 0.95);
+  box-shadow: 0 0 0 1px rgba(129, 140, 248, 0.9);
+  transform: translateY(-1px);
+}
+
+.fc .fc-daygrid-day.fc-day-today .fc-daygrid-day-frame {
+  background: rgba(59, 130, 246, 0.15);
+  box-shadow: 0 0 0 1px rgba(96, 165, 250, 0.9);
+}
+
+/* Event styling + hover */
+.fc-event {
+  background: rgba(129, 140, 248, 0.95);
+  border: none;
+  font-size: 0.75rem;
+  padding: 0 2px;
+  border-radius: 999px;
+  transition: transform 0.08s ease, box-shadow 0.15s ease;
+}
+
+.fc-event:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 0 0 1px rgba(196, 181, 253, 0.9);
+}
+
+/* Responsive tweaks */
+@media (max-width: 991.98px) {
+  .df-cal-summary-row {
+    grid-template-columns: 1fr;
+  }
+}
+/* Day list under Add Reminder card */
+.df-cal-daylist {
+  border-top: 1px dashed rgba(148, 163, 184, 0.4);
+  padding-top: 0.6rem;
+  margin-top: 0.6rem;
+}
+
+.df-cal-daylist-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 0.35rem;
+}
+
+.df-cal-daylist-header span {
+  font-size: 0.8rem;
+}
+
+.df-cal-daylist-date {
+  font-size: 0.76rem;
+  color: #9ca3af;
+}
+
+.df-cal-daylist-items {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.df-cal-daylist-item {
+  padding: 0.35rem 0;
+  border-bottom: 1px dashed rgba(55, 65, 81, 0.6);
+}
+
+.df-cal-daylist-item:last-child {
+  border-bottom: none;
+}
+
+.df-cal-daylist-item-top {
+  display: flex;
+  gap: 0.3rem;
+  align-items: center;
+  margin-bottom: 0.1rem;
+}
+
+.df-cal-daylist-time {
+  font-size: 0.75rem;
+  padding: 0.05rem 0.4rem;
+  border-radius: 999px;
+  background: rgba(30, 64, 175, 0.7);
+  color: #e5e7eb;
+}
+
+.df-cal-daylist-title {
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+.df-cal-daylist-desc {
+  font-size: 0.78rem;
+  color: #9ca3af;
+}
+
+.df-cal-daylist-empty {
+  font-size: 0.78rem;
+  color: #9ca3af;
+}
+
+/* OverView */
+/* ------------------------------
+   Overview tab
+   ------------------------------ */
+
+.df-ov-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* Stat cards */
+
+.df-ov-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+@media (max-width: 991.98px) {
+  .df-ov-stats-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 575.98px) {
+  .df-ov-stats-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.df-ov-stat-card {
+  padding: 1rem 1.2rem;
+  border-radius: 1rem;
+  background: radial-gradient(
+      circle at top left,
+      rgba(236, 72, 153, 0.16),
+      transparent 55%
+    ),
+    rgba(15, 23, 42, 0.95);
+  border: 1px solid rgba(148, 163, 184, 0.35);
+  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.7);
+}
+
+.df-ov-stat-label {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #9ca3af;
+}
+
+.df-ov-stat-value {
+  margin-top: 0.25rem;
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: #e5e7eb;
+}
+
+.df-ov-stat-meta {
+  margin-top: 0.3rem;
+  font-size: 0.78rem;
+  color: #9ca3af;
+}
+
+.df-ov-stat-meta--positive {
+  color: #4ade80;
+}
+
+.df-ov-stat-meta--negative {
+  color: #f97373;
+}
+
+/* Generic cards used in overview */
+
+.df-ov-card {
+  border-radius: 1rem;
+  background: rgba(15, 23, 42, 0.96);
+  border: 1px solid rgba(55, 65, 81, 0.9);
+  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.85);
+  display: flex;
+  flex-direction: column;
+}
+
+.df-ov-card-header {
+  padding: 0.9rem 1.1rem 0.4rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 0.75rem;
+}
+
+.df-ov-card-title {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #e5e7eb;
+}
+
+.df-ov-card-subtitle {
+  margin: 0.15rem 0 0;
+  font-size: 0.78rem;
+  color: #9ca3af;
+}
+
+.df-ov-card-body {
+  padding: 0.5rem 1.1rem 1.1rem;
+}
+
+.df-ov-card-body--center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Charts row */
+
+.df-ov-charts-grid {
+  display: grid;
+  grid-template-columns: 3fr 2fr;
+  gap: 1rem;
+}
+
+@media (max-width: 991.98px) {
+  .df-ov-charts-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.df-ov-chart-legend-hint {
+  font-size: 0.75rem;
+  color: #9ca3af;
+}
+
+/* Lists row */
+
+.df-ov-lists-grid {
+  display: grid;
+  grid-template-columns: 2fr 3fr;
+  gap: 1rem;
+}
+
+@media (max-width: 991.98px) {
+  .df-ov-lists-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* Upcoming reminders list */
+
+.df-ov-rem-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.df-ov-rem-item {
+  padding: 0.5rem 0.3rem;
+  border-bottom: 1px dashed rgba(55, 65, 81, 0.9);
+}
+
+.df-ov-rem-item:last-child {
+  border-bottom: none;
+}
+
+.df-ov-rem-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 0.5rem;
+}
+
+.df-ov-rem-title {
+  font-size: 0.86rem;
+  font-weight: 500;
+  color: #e5e7eb;
+}
+
+.df-ov-rem-date {
+  font-size: 0.78rem;
+  color: #9ca3af;
+}
+
+.df-ov-rem-desc {
+  margin-top: 0.2rem;
+  font-size: 0.78rem;
+  color: #9ca3af;
+}
+
+.df-ov-rem-empty {
+  font-size: 0.8rem;
+  color: #9ca3af;
+}
+
+/* Recent expenses table */
+
+.df-ov-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.8rem;
+}
+
+.df-ov-table thead th {
+  font-size: 0.76rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 0.35rem 0.3rem;
+  color: #9ca3af;
+  border-bottom: 1px solid rgba(55, 65, 81, 0.9);
+}
+
+.df-ov-table tbody td {
+  padding: 0.4rem 0.3rem;
+  border-bottom: 1px dashed rgba(55, 65, 81, 0.8);
+  color: #e5e7eb;
+}
+
+.df-ov-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.df-ov-table-empty td {
+  text-align: center;
+  color: #9ca3af;
+}
+

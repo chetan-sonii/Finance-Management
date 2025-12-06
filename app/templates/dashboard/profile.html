@@ -1,0 +1,171 @@
+{% extends "dashboard/layout.html" %}
+
+{% block dashboard_title %}Your Profile{% endblock %}
+{% block dashboard_subtitle %}View and manage your personal details.{% endblock %}
+
+{% block dashboard_content %}
+<div class="row g-4">
+  <!-- Left: Avatar & basic info -->
+  <div class="col-lg-4">
+    <div class="df-profile-card">
+      <div class="df-profile-avatar-wrap">
+        <div class="df-profile-avatar">
+          <img
+            src="{{ url_for('static', filename='uploads/avatars/' ~ (current_user.avatar_filename or 'default.jpg')) }}"
+            alt="{{ current_user.name or 'User' }}"
+          >
+        </div>
+      </div>
+
+      <div class="df-profile-main-info">
+        <h2 class="df-profile-name">
+          {{ current_user.name or 'Your Name' }}
+        </h2>
+        <p class="df-profile-email">
+          {{ current_user.email }}
+        </p>
+        {% if current_user.phone %}
+          <p class="df-profile-phone">
+            {{ current_user.phone }}
+          </p>
+        {% endif %}
+        <p class="df-profile-role">
+          {{ current_user.role|capitalize }} account
+        </p>
+      </div>
+
+      <hr class="df-profile-separator" />
+
+      <div class="df-profile-meta">
+        <div>
+          <div class="df-profile-meta-label">Member since</div>
+          <div class="df-profile-meta-value">
+            {{ current_user.created_at.strftime("%d %b %Y") if current_user.created_at }}
+          </div>
+        </div>
+        <div>
+          <div class="df-profile-meta-label">Last login</div>
+          <div class="df-profile-meta-value">
+            {{ current_user.last_login_at.strftime("%d %b %Y, %H:%M") if current_user.last_login_at else "—" }}
+          </div>
+        </div>
+      </div>
+
+      <div class="df-profile-avatar-form mt-3">
+        <form
+          action="{{ url_for('dashboard.upload_avatar') }}"
+          method="POST"
+          enctype="multipart/form-data"
+          class="d-flex flex-column gap-2"
+        >
+          <label class="form-label mb-0" for="avatar">Profile picture</label>
+          <input
+            class="form-control form-control-sm"
+            type="file"
+            id="avatar"
+            name="avatar"
+            accept="image/*"
+          />
+          <button type="submit" class="btn btn-sm df-cta-btn">
+            Update picture
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Right: forms -->
+  <div class="col-lg-8">
+    <!-- Update profile -->
+    <div class="df-profile-card mb-4">
+      <h3 class="df-profile-section-title">Personal details</h3>
+      <p class="df-profile-section-sub">
+        Update your basic information used across your dashboard.
+      </p>
+
+      <form
+        action="{{ url_for('dashboard.update_profile') }}"
+        method="POST"
+        class="row g-3 mt-1"
+      >
+        <div class="col-md-6">
+          <label for="name" class="form-label">Full name</label>
+          <input
+            type="text"
+            class="form-control"
+            id="name"
+            name="name"
+            value="{{ current_user.name }}"
+            required
+          />
+        </div>
+
+        <div class="col-md-6">
+          <label for="email" class="form-label">Email address</label>
+          <input
+            type="email"
+            class="form-control"
+            id="email"
+            value="{{ current_user.email }}"
+            disabled
+          />
+          <small class="text-muted" style="font-size: 0.8rem;">
+            Email is used as your login ID. Contact support to change it.
+          </small>
+        </div>
+
+        <div class="col-md-6">
+          <label for="phone" class="form-label">Phone number</label>
+          <input
+            type="text"
+            class="form-control"
+            id="phone"
+            name="phone"
+            value="{{ current_user.phone or '' }}"
+            placeholder="+91-XXXXXXXXXX"
+          />
+        </div>
+
+        <div class="col-12 mt-2">
+          <button type="submit" class="btn df-cta-btn">
+            Save changes
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <!-- Delete account -->
+    <div class="df-profile-card df-profile-danger">
+      <h3 class="df-profile-section-title">Delete account</h3>
+      <p class="df-profile-section-sub">
+        Deleting your account will remove your profile and may clear your saved expenses,
+        reminders and other data. This action cannot be undone.
+      </p>
+
+      <form
+        action="{{ url_for('dashboard.delete_account') }}"
+        method="POST"
+        class="row g-3 align-items-end"
+      >
+        <div class="col-md-6">
+          <label for="confirm" class="form-label">
+            Type <strong>DELETE</strong> to confirm
+          </label>
+          <input
+            type="text"
+            class="form-control"
+            id="confirm"
+            name="confirm"
+            placeholder="DELETE"
+          />
+        </div>
+        <div class="col-md-6">
+          <button type="submit" class="btn btn-outline-danger">
+            Permanently delete my account
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}
