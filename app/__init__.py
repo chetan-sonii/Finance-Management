@@ -1,39 +1,24 @@
+# app/__init__.py
 import os
 from flask import Flask
-from .extensions import db, login_manager
 from datetime import datetime
 
+from app.extensions import db, login_manager, migrate
+from config import DevelopmentConfig
 
-def create_app():
+
+def create_app(config_class=DevelopmentConfig):
     app = Flask(__name__, instance_relative_config=True)
 
+    # ---- Load config ----
+    app.config.from_object(config_class)
+
+    # ---- Context processors ----
     @app.context_processor
     def inject_now():
         return {"current_year": datetime.utcnow().year}
 
-    app.config.from_mapping(
-        SECRET_KEY="dev-change-this-key",
-        SQLALCHEMY_DATABASE_URI="mysql+mysqlconnector://chetan:Chetan_123@localhost:3307/disha_finance",
-        SQLALCHEMY_TRACK_MODIFICATIONS=False,
-    )
-
-    # NEW: avatar upload settings
-    app.config["AVATAR_UPLOAD_FOLDER"] = os.path.join(
-        app.static_folder, "uploads", "avatars"
-    )
-    app.config["ALLOWED_IMAGE_EXTENSIONS"] = {"png", "jpg", "jpeg", "gif"}
-
-    @app.context_processor
-    def inject_now():
-        return {"current_year": datetime.utcnow().year}
-
-    # ---- Basic config for now ----
-    app.config.from_mapping(
-        SECRET_KEY="dev-change-this-key",  # change in production
-        SQLALCHEMY_DATABASE_URI="mysql+mysqlconnector://chetan:Chetan_123@localhost:3307/disha_finance",
-        SQLALCHEMY_TRACK_MODIFICATIONS=False,
-    )
-
+    # ---- Ensure instance folder ----
     try:
         os.makedirs(app.instance_path, exist_ok=True)
     except OSError:
@@ -41,18 +26,17 @@ def create_app():
 
     # ---- Init extensions ----
     db.init_app(app)
+    migrate.init_app(app, db)
 
     login_manager.init_app(app)
     login_manager.login_view = "auth.login"
     login_manager.login_message_category = "info"
 
-    # ---- Real user_loader using User model ----
-    from .models import User  # import here to avoid circular import
-
+    # ---- User loader ----
+    from .models import User
 
     @login_manager.user_loader
-    def load_user(user_id: str):
-        # Flask-Login stores user_id in session as string
+    def load_user(user_id):
         try:
             return User.query.get(int(user_id))
         except (ValueError, TypeError):

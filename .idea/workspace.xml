@@ -5,43 +5,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0e408792-0731-45c8-a1ec-16794bed7320" name="Changes" comment="STARTING. Folder Structure Created">
-      <change afterPath="$PROJECT_DIR$/app/static/js/reminders.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/templates/dashboard/overview.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.env" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/invest_seed.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/1.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/1.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/admin/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/admin/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/admin/routes.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/admin/routes.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/auth/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/auth/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/auth/routes.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/auth/routes.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/dashboard/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/dashboard/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/dashboard/routes.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/dashboard/routes.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/extensions.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/extensions.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/public/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/public/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/public/routes.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/public/routes.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/static/css/dashboard.css" beforeDir="false" afterPath="$PROJECT_DIR$/app/static/css/dashboard.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/static/css/main.css" beforeDir="false" afterPath="$PROJECT_DIR$/app/static/css/main.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/static/js/calendar.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/static/js/overview.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/static/js/compound.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/static/js/compound.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/static/js/expenses.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/static/js/expenses.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/static/js/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/static/js/main.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/templates/auth/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/templates/auth/login.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/templates/auth/register.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/templates/auth/register.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/templates/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/templates/base.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/templates/dashboard/advisor.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/templates/dashboard/advisor.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/templates/dashboard/calendar.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/templates/dashboard/calendar.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/templates/dashboard/compound.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/templates/dashboard/compound.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/templates/dashboard/expenses.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/templates/dashboard/expenses.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/templates/dashboard/home.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/templates/public/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/templates/dashboard/layout.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/templates/dashboard/layout.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/templates/dashboard/profile.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/templates/dashboard/profile.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/templates/public/about.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/templates/public/about.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/templates/public/contact.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/templates/public/contact.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/templates/public/home.html" beforeDir="false" afterPath="$PROJECT_DIR$/seed.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/utils.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config.py" beforeDir="false" afterPath="$PROJECT_DIR$/config.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/current.zip" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/db_setup.py" beforeDir="false" afterPath="$PROJECT_DIR$/db_setup.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/run.py" beforeDir="false" afterPath="$PROJECT_DIR$/run.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -75,16 +49,27 @@
     "ASKED_MARK_IGNORED_FILES_AS_EXCLUDED": "true",
     "DefaultHtmlFileTemplate": "HTML File",
     "Python.db_setup.executor": "Run",
+    "Python.invest_seed.executor": "Run",
     "Python.models.executor": "Run",
     "Python.routes.executor": "Run",
     "Python.run.executor": "Run",
     "Python.seed.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "master"
+    "git-widget-placeholder": "master",
+    "ignore.virus.scanning.warn.message": "true",
+    "last_opened_file_path": "D:/0COLLEGE/Project/Disha/Project/1",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
-  <component name="RunManager" selected="Python.run">
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\0COLLEGE\Project\Disha\Project\1" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Python.seed">
     <configuration name="db_setup" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="1" />
       <option name="ENV_FILES" value="" />
@@ -107,7 +92,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="models" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="invest_seed" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="1" />
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -116,11 +101,11 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/app" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/app/models.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/invest_seed.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -197,11 +182,10 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.run" />
         <item itemvalue="Python.seed" />
-        <item itemvalue="Python.routes" />
-        <item itemvalue="Python.models" />
+        <item itemvalue="Python.invest_seed" />
         <item itemvalue="Python.db_setup" />
+        <item itemvalue="Python.run" />
       </list>
     </recent_temporary>
   </component>
@@ -220,6 +204,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1765013200570</updated>
+      <workItem from="1765293507764" duration="108000" />
     </task>
     <task id="LOCAL-00001" summary="STARTING. Folder Structure Created">
       <option name="closed" value="true" />
@@ -229,10 +214,30 @@
       <option name="project" value="LOCAL" />
       <updated>1765016316396</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="STARTING. Folder Structure Created">
+      <option name="closed" value="true" />
+      <created>1765118410473</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1765118410473</updated>
+    </task>
+    <task id="LOCAL-00003" summary="STARTING. Folder Structure Created">
+      <option name="closed" value="true" />
+      <created>1765118416679</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1765118416679</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
   <component name="VcsManagerConfiguration">
+    <MESSAGE value="Around 80% Complete" />
     <MESSAGE value="STARTING. Folder Structure Created" />
     <option name="LAST_COMMIT_MESSAGE" value="STARTING. Folder Structure Created" />
   </component>
