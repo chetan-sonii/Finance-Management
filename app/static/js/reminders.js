@@ -307,7 +307,43 @@ document.addEventListener("DOMContentLoaded", () => {
         const data = await res.json();
         if (data.status === "success") {
           if (calendar) calendar.refetchEvents();
-//          window.location.reload();
+        //          window.location.reload();
+        } else {
+          alert(data.message || "Could not delete reminder.");
+        }
+      } catch (err) {
+        console.error(err);
+        alert("Error deleting reminder.");
+      }
+    });
+  });
+  document.querySelectorAll(".df-del-rem").forEach((btn) => {
+    btn.addEventListener("click", async () => {
+      const id = btn.dataset.id;
+      const deleteUrl = `/dashboard/calendar/delete/${id}`;
+
+      try {
+        const res = await fetch(deleteUrl, {
+          method: "POST"
+        });
+        const data = await res.json();
+        if (data.status === "success") {
+          // 1. Refresh Calendar
+          if (calendar) calendar.refetchEvents();
+
+          // 2. Remove the item from the sidebar list immediately
+          const listItem = btn.closest('li');
+          if (listItem) {
+            listItem.remove();
+          }
+
+          // 3. Update the "Active reminders" count in the DOM (Optional but good UX)
+          const countBadge = document.querySelector('.df-cal-side-count');
+          if (countBadge) {
+             let currentCount = parseInt(countBadge.innerText) || 0;
+             if (currentCount > 0) countBadge.innerText = (currentCount - 1) + " active";
+          }
+
         } else {
           alert(data.message || "Could not delete reminder.");
         }
@@ -318,3 +354,5 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 });
+
+

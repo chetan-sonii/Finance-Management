@@ -4,10 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0e408792-0731-45c8-a1ec-16794bed7320" name="Changes" comment="Final Changes">
+    <list default="true" id="0e408792-0731-45c8-a1ec-16794bed7320" name="Changes" comment="Final Changes 2">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/db_setup.py" beforeDir="false" afterPath="$PROJECT_DIR$/db_setup.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/static/js/reminders.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/static/js/reminders.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/disha finance.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/migrations/README" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/migrations/alembic.ini" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/migrations/env.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/migrations/script.py.mako" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/migrations/versions/372085b47ef5_.py" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -250,7 +256,15 @@
       <option name="project" value="LOCAL" />
       <updated>1771361185611</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Final Changes 2">
+      <option name="closed" value="true" />
+      <created>1771361478112</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1771361478112</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -260,6 +274,7 @@
     <MESSAGE value="Around 80% Complete" />
     <MESSAGE value="STARTING. Folder Structure Created" />
     <MESSAGE value="Final Changes" />
-    <option name="LAST_COMMIT_MESSAGE" value="Final Changes" />
+    <MESSAGE value="Final Changes 2" />
+    <option name="LAST_COMMIT_MESSAGE" value="Final Changes 2" />
   </component>
 </project>

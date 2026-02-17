@@ -3,7 +3,6 @@ from flask_login import UserMixin
 from .extensions import db
 
 
-
 class User(db.Model, UserMixin):
     __tablename__ = "users"
 
@@ -19,10 +18,10 @@ class User(db.Model, UserMixin):
     is_active = db.Column(db.Boolean, default=True)
     avatar_filename = db.Column(db.String(255), nullable=True)
 
-    # Relationships (optional but useful later)
-    expenses = db.relationship("Expense", back_populates="user", lazy=True)
-    reminders = db.relationship("Reminder", back_populates="user", lazy=True)
-    ci_calculations = db.relationship("CICalculation", back_populates="user", lazy=True)
+    # Relationships with cascade delete enabled
+    expenses = db.relationship("Expense", back_populates="user", lazy=True, cascade="all, delete-orphan")
+    reminders = db.relationship("Reminder", back_populates="user", lazy=True, cascade="all, delete-orphan")
+    ci_calculations = db.relationship("CICalculation", back_populates="user", lazy=True, cascade="all, delete-orphan")
 
     def __repr__(self):
         return f"<User {self.email} ({self.role})>"
@@ -36,7 +35,6 @@ class ExpenseCategory(db.Model):
     description = db.Column(db.String(255))
     is_default = db.Column(db.Boolean, default=True)
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=True)  # for custom categories
-
 
     user = db.relationship("User", backref="custom_categories")
     expenses = db.relationship("Expense", back_populates="category", lazy=True)
@@ -82,7 +80,6 @@ class Reminder(db.Model):
         return f"<Reminder {self.title}>"
 
 
-
 class CICalculation(db.Model):
     __tablename__ = "ci_calculations"
 
@@ -100,6 +97,7 @@ class CICalculation(db.Model):
 
     def __repr__(self):
         return f"<CICalc {self.principal} -> {self.maturity_amount}>"
+
 
 class InvestmentOption(db.Model):
     __tablename__ = "investment_options"
@@ -128,4 +126,3 @@ class InvestmentOption(db.Model):
 
     def __repr__(self):
         return f"<InvestmentOption {self.name}>"
-
