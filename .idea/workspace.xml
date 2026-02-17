@@ -4,19 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0e408792-0731-45c8-a1ec-16794bed7320" name="Changes" comment="Final Changes 3">
+    <list default="true" id="0e408792-0731-45c8-a1ec-16794bed7320" name="Changes" comment="Final Changes 4">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/dashboard/routes.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/dashboard/routes.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/public/routes.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/public/routes.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/static/js/reminders.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/static/js/reminders.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/templates/dashboard/calendar.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/templates/dashboard/calendar.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/templates/dashboard/expenses.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/templates/dashboard/expenses.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/templates/dashboard/layout.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/templates/dashboard/layout.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/templates/dashboard/profile.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/templates/dashboard/profile.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/templates/public/contact.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/templates/public/contact.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config.py" beforeDir="false" afterPath="$PROJECT_DIR$/config.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/disha_updated.zip" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -275,7 +264,15 @@
       <option name="project" value="LOCAL" />
       <updated>1771362130243</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Final Changes 4">
+      <option name="closed" value="true" />
+      <created>1771364774396</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1771364774397</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -287,6 +284,7 @@
     <MESSAGE value="Final Changes" />
     <MESSAGE value="Final Changes 2" />
     <MESSAGE value="Final Changes 3" />
-    <option name="LAST_COMMIT_MESSAGE" value="Final Changes 3" />
+    <MESSAGE value="Final Changes 4" />
+    <option name="LAST_COMMIT_MESSAGE" value="Final Changes 4" />
   </component>
 </project>
