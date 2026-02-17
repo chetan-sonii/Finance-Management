@@ -8,5 +8,5 @@ python-dotenv
 alembic
 mysql-connector-python
 Faker
- mysql-connector-python
+mysql-connector-python
 
