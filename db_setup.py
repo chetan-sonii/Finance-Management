@@ -55,7 +55,6 @@ from app.models import (
     Expense,
     Reminder,
     CICalculation,
-    PageContent,
     InvestmentOption,
 )
 
@@ -265,33 +264,6 @@ with app.app_context():
             )
             db.session.add(ci)
     db.session.commit()
-
-    # -------------------------
-    # PageContent (CMS)
-    # -------------------------
-    print("Seeding page content...")
-    admin_user = random.choice(admins)
-    page_entries = [
-        ("home", "hero_title", "Manage your money. Build your future."),
-        ("home", "hero_subtitle", "Disha Finance — expense tracking, investment planning, and reminders in one place."),
-        ("home", "feature_1", "Expense tracker with smart categories and monthly insights."),
-        ("home", "feature_2", "Automated reminders for bills & investments."),
-        ("about", "intro", "Disha Finance is a student-built demo that simulates personal finance management for learning and presentation."),
-        ("about", "mission", "We make it simple to track expenses, plan investments, and reach financial goals."),
-        ("contact", "email", "support@disha.finance"),
-        ("contact", "phone", "+91 90000 00000"),
-        ("contact", "address", "123 Demo Street, Bangalore, India"),
-    ]
-    for slug, section, content in page_entries:
-        pc = PageContent(
-            page_slug=slug,
-            section_name=section,
-            content=content,
-            updated_by=admin_user.id,
-        )
-        db.session.add(pc)
-    db.session.commit()
-
     # -------------------------
     # InvestmentOptions
     # -------------------------

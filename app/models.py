@@ -101,26 +101,6 @@ class CICalculation(db.Model):
     def __repr__(self):
         return f"<CICalc {self.principal} -> {self.maturity_amount}>"
 
-
-class PageContent(db.Model):
-    """
-    Simple CMS table so admin can edit text for home/about/contact pages.
-    """
-    __tablename__ = "page_contents"
-
-    id = db.Column(db.Integer, primary_key=True)
-    page_slug = db.Column(db.String(50), nullable=False)   # 'home', 'about', 'contact'
-    section_name = db.Column(db.String(50), nullable=False)  # 'hero_title', etc.
-    content = db.Column(db.Text, nullable=False)
-    updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
-    updated_by = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=True)
-
-    updated_by_user = db.relationship("User")
-
-    def __repr__(self):
-        return f"<PageContent {self.page_slug}:{self.section_name}>"
-
-
 class InvestmentOption(db.Model):
     __tablename__ = "investment_options"
 
