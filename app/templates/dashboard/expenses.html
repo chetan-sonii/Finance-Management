@@ -2,25 +2,34 @@
 
 {% block dashboard_title %}Expense Calculator{% endblock %}
 {% block dashboard_subtitle %}
-Plan and track your monthly expenses. Add categories, adjust amounts, and see where your money goes.
+Track, plan and review your monthly expenses. Your data is saved and persists across sessions.
 {% endblock %}
 
 {% block dashboard_content %}
+
+{# ── Previous months history bar (full width, above calculator) ── #}
+
+
 <div class="row g-4">
   <!-- Left side: table + controls -->
   <div class="col-lg-7">
     <div class="df-exp-card">
       <div class="df-exp-card-header">
         <div>
-          <h3 class="df-exp-title">Monthly expenses</h3>
+          <h3 class="df-exp-title">This month's expenses</h3>
           <p class="df-exp-sub">
-            Add or edit expense categories, then calculate to see totals and charts.
+            Your entries are saved to the database — they won't reset on reload.
+            Hit <strong>Save</strong> after editing.
           </p>
         </div>
-
         <button type="button" class="btn btn-sm btn-outline-light df-exp-add-row">
           + Add row
         </button>
+      </div>
+
+      <!-- Saved-data notice -->
+      <div id="df-exp-loaded-notice" class="alert alert-info py-2 px-3 mb-3 d-none" style="font-size:0.85rem;">
+        <i class="lni lni-checkmark-circle"></i> Loaded your saved expenses for today.
       </div>
 
       <!-- Form that will be submitted to save expenses -->
@@ -39,91 +48,7 @@ Plan and track your monthly expenses. Add categories, adjust amounts, and see wh
               </tr>
             </thead>
             <tbody id="df-exp-rows">
-              <!-- Default rows -->
-              <tr class="df-exp-row">
-                <td>
-                  <input
-                    type="text"
-                    class="form-control df-exp-type"
-                    name="types[]"
-                    value="Rent"
-                  />
-                </td>
-                <td>
-                  <input
-                    type="number"
-                    min="0"
-                    step="0.01"
-                    class="form-control df-exp-amount"
-                    name="amounts[]"
-                    value="8000"
-                  />
-                </td>
-                <td class="text-end">
-                  <button
-                    type="button"
-                    class="btn btn-sm btn-outline-secondary df-exp-remove-row"
-                  >
-                    ✕
-                  </button>
-                </td>
-              </tr>
-              <tr class="df-exp-row">
-                <td>
-                  <input
-                    type="text"
-                    class="form-control df-exp-type"
-                    name="types[]"
-                    value="Food & groceries"
-                  />
-                </td>
-                <td>
-                  <input
-                    type="number"
-                    min="0"
-                    step="0.01"
-                    class="form-control df-exp-amount"
-                    name="amounts[]"
-                    value="5000"
-                  />
-                </td>
-                <td class="text-end">
-                  <button
-                    type="button"
-                    class="btn btn-sm btn-outline-secondary df-exp-remove-row"
-                  >
-                    ✕
-                  </button>
-                </td>
-              </tr>
-              <tr class="df-exp-row">
-                <td>
-                  <input
-                    type="text"
-                    class="form-control df-exp-type"
-                    name="types[]"
-                    value="Transport"
-                  />
-                </td>
-                <td>
-                  <input
-                    type="number"
-                    min="0"
-                    step="0.01"
-                    class="form-control df-exp-amount"
-                    name="amounts[]"
-                    value="2000"
-                  />
-                </td>
-                <td class="text-end">
-                  <button
-                    type="button"
-                    class="btn btn-sm btn-outline-secondary df-exp-remove-row"
-                  >
-                    ✕
-                  </button>
-                </td>
-              </tr>
+              <!-- Rows injected by JS from DB or defaults -->
             </tbody>
           </table>
         </div>
@@ -132,7 +57,6 @@ Plan and track your monthly expenses. Add categories, adjust amounts, and see wh
           <button type="button" class="btn btn-sm df-cta-btn df-exp-calc">
             CALCULATE TOTAL
           </button>
-
           <button type="submit" class="btn btn-sm df-cta-btn df-exp-save-btn">
             Save expenses
           </button>
@@ -149,7 +73,7 @@ Plan and track your monthly expenses. Add categories, adjust amounts, and see wh
         <div>
           <h3 class="df-exp-title mb-1">Summary</h3>
           <p class="df-exp-sub mb-0">
-            A quick snapshot of your monthly outflow based on the rows you enter.
+            A quick snapshot of your monthly outflow.
           </p>
         </div>
       </div>
@@ -165,9 +89,8 @@ Plan and track your monthly expenses. Add categories, adjust amounts, and see wh
         </div>
       </div>
 
-      <small class="text-muted" style="font-size: 0.8rem;">
-        Tip: Try grouping similar spends together (e.g. “Subscriptions”, “EMIs”, “Leisure”)
-        to see a clearer distribution.
+      <small style="font-size: 0.8rem; color:white;">
+        Tip: Group similar spends (e.g. "Subscriptions", "EMIs", "Leisure") for a clearer picture.
       </small>
     </div>
 
@@ -177,72 +100,157 @@ Plan and track your monthly expenses. Add categories, adjust amounts, and see wh
         <div>
           <h3 class="df-exp-title mb-1">Visual breakdown</h3>
           <p class="df-exp-sub mb-0">
-            Choose a chart type to analyse how your spending is distributed.
+            See how your spending is distributed.
           </p>
         </div>
         <div class="btn-group df-exp-chart-toggle" role="group" aria-label="Chart type">
-          <button
-            type="button"
-            class="btn btn-sm btn-outline-light active"
-            data-chart-type="pie"
-          >
-            Pie
-          </button>
-          <button
-            type="button"
-            class="btn btn-sm btn-outline-light"
-            data-chart-type="doughnut"
-          >
-            Doughnut
-          </button>
-          <button
-            type="button"
-            class="btn btn-sm btn-outline-light"
-            data-chart-type="bar"
-          >
-            Bar
-          </button>
+          <button type="button" class="btn btn-sm btn-outline-light active" data-chart-type="pie">Pie</button>
+          <button type="button" class="btn btn-sm btn-outline-light" data-chart-type="doughnut">Doughnut</button>
+          <button type="button" class="btn btn-sm btn-outline-light" data-chart-type="bar">Bar</button>
         </div>
       </div>
-
       <canvas id="expensesChartMain" height="190"></canvas>
     </div>
   </div>
 </div>
-    {% if history %}
-    <div class="df-exp-card mt-3">
-      <h3 class="df-exp-title mb-1">Saved months</h3>
-      <p class="df-exp-sub mb-2">
-        Recent months where you've saved expense data from this calculator.
-      </p>
-
-      <ul class="df-exp-history list-unstyled mb-0">
-        {% for item in history %}
-          <li class="df-exp-history-item">
-            <div>
-              <div class="df-exp-history-period">
-                {{ item.date.strftime("%b %Y") }}
-              </div>
-              <div class="df-exp-history-date">
-                Period key: {{ item.period }} · Saved on {{ item.date.strftime("%d %b %Y") }}
-              </div>
-            </div>
-            <div class="text-end">
-              <div class="df-exp-history-amount">
-                ₹ {{ "%.2f"|format(item.total) }}
-              </div>
-              <div class="df-exp-history-links">
-                <a
-                  href="{{ url_for('dashboard.expenses_export_csv', period=item.period) }}"
-                >
-                  Export CSV
-                </a>
-              </div>
-            </div>
-          </li>
-        {% endfor %}
-      </ul>
+{% if history %}
+<div class="df-exp-card mb-4">
+  <div class="df-exp-card-header mb-2">
+    <div>
+      <h3 class="df-exp-title mb-0">Previous months</h3>
+      <p class="df-exp-sub mb-0">Your saved expense history — click a month to view details.</p>
     </div>
-    {% endif %}
+  </div>
+
+  <div class="df-exp-history-grid">
+    {% for item in history %}
+    <div class="df-exp-history-tile">
+      <div class="df-exp-history-month">{{ item.date.strftime("%b") }}</div>
+      <div class="df-exp-history-year">{{ item.date.strftime("%Y") }}</div>
+      <div class="df-exp-history-amount">₹ {{ "%.0f"|format(item.total) }}</div>
+      <a
+        href="{{ url_for('dashboard.expenses_export_csv', period=item.period) }}"
+        class="df-exp-history-export"
+        title="Export CSV"
+      >
+        <i class="lni lni-download"></i> CSV
+      </a>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endif %}
+
+<style>
+/* ── History tiles ── */
+.df-exp-history-grid {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+.df-exp-history-tile {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 10px;
+  padding: 0.85rem 1.1rem;
+  min-width: 100px;
+  text-align: center;
+  transition: border-color 0.2s, background 0.2s;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.15rem;
+}
+.df-exp-history-tile:hover {
+  border-color: rgba(139,92,246,0.5);
+  background: rgba(139,92,246,0.08);
+}
+.df-exp-history-month {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #e5e7eb;
+}
+.df-exp-history-year {
+  font-size: 0.75rem;
+  color: #9ca3af;
+  margin-bottom: 0.3rem;
+}
+.df-exp-history-amount {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #a78bfa;
+  margin-bottom: 0.4rem;
+}
+.df-exp-history-export {
+  font-size: 0.72rem;
+  color: #6b7280;
+  text-decoration: none;
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 5px;
+  padding: 2px 6px;
+}
+.df-exp-history-export:hover {
+  color: #e5e7eb;
+  background: rgba(255,255,255,0.08);
+}
+</style>
+
+<script>
+// ── Load saved expenses on page load ──
+(function () {
+  const DEFAULT_ROWS = [
+    { title: "Rent", amount: 8000 },
+    { title: "Food & groceries", amount: 5000 },
+    { title: "Transport", amount: 2000 },
+  ];
+
+  function makeRow(title, amount) {
+    const tr = document.createElement("tr");
+    tr.className = "df-exp-row";
+    tr.innerHTML = `
+      <td>
+        <input type="text" class="form-control df-exp-type" name="types[]" value="${escapeHtml(title)}" />
+      </td>
+      <td>
+        <input type="number" min="0" step="0.01" class="form-control df-exp-amount" name="amounts[]" value="${amount}" />
+      </td>
+      <td class="text-end">
+        <button type="button" class="btn btn-sm btn-outline-secondary df-exp-remove-row">✕</button>
+      </td>
+    `;
+    return tr;
+  }
+
+  function escapeHtml(str) {
+    return String(str).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
+  }
+
+  function populateRows(items, fromDb) {
+    const tbody = document.getElementById("df-exp-rows");
+    if (!tbody) return;
+    tbody.innerHTML = "";
+    items.forEach(item => tbody.appendChild(makeRow(item.title, item.amount)));
+
+    if (fromDb) {
+      const notice = document.getElementById("df-exp-loaded-notice");
+      if (notice) notice.classList.remove("d-none");
+    }
+
+    // Trigger calculate
+    if (typeof dfExpCalculate === "function") dfExpCalculate();
+  }
+
+  fetch("{{ url_for('dashboard.expenses_current_month') }}")
+    .then(r => r.json())
+    .then(data => {
+      if (data.items && data.items.length > 0) {
+        populateRows(data.items, true);
+      } else {
+        populateRows(DEFAULT_ROWS, false);
+      }
+    })
+    .catch(() => populateRows(DEFAULT_ROWS, false));
+})();
+</script>
 
 {% endblock %}

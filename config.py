@@ -23,7 +23,7 @@ class Config:
 
     # Uploads
     AVATAR_UPLOAD_FOLDER = os.path.join(
-        BASE_DIR, "app", "static", "uploads", "avatars"
+        BASE_DIR,"1", "app", "static", "uploads", "avatars"
     )
     ALLOWED_IMAGE_EXTENSIONS = {"png", "jpg", "jpeg", "gif"}
 

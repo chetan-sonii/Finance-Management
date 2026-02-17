@@ -373,6 +373,7 @@ def overview_recent_expenses():
 def update_profile():
     name = (request.form.get("name") or "").strip()
     phone = (request.form.get("phone") or "").strip()
+    
 
     if not name:
         flash("Name cannot be empty.", "warning")
@@ -382,10 +383,10 @@ def update_profile():
     current_user.phone = phone if phone else None
     current_user.updated_at = datetime.utcnow()
 
+
     db.session.commit()
     flash("Profile updated successfully.", "success")
     return redirect(url_for("dashboard.profile"))
-
 
 @dashboard_bp.route("/profile/avatar", methods=["POST"])
 @login_required
@@ -401,66 +402,155 @@ def upload_avatar():
         return redirect(url_for("dashboard.profile"))
 
     filename = secure_filename(file.filename)
+    if "." not in filename:
+        flash("Uploaded file has no extension.", "danger")
+        return redirect(url_for("dashboard.profile"))
+
     ext = filename.rsplit(".", 1)[-1].lower()
-    # Save as user_<id>.<ext> to avoid collisions
     new_filename = f"user_{current_user.id}.{ext}"
 
-    upload_folder = current_app.config["AVATAR_UPLOAD_FOLDER"]
-    os.makedirs(upload_folder, exist_ok=True)
+    # Resolve upload folder to absolute path (helps with relative-config bugs)
+    upload_folder_cfg = current_app.config.get("AVATAR_UPLOAD_FOLDER", "uploads/avatars")
+    upload_folder = os.path.abspath(
+        os.path.join(current_app.root_path, upload_folder_cfg)
+        if not os.path.isabs(upload_folder_cfg)
+        else upload_folder_cfg
+    )
+    current_app.logger.debug("Avatar upload folder resolved to: %s", upload_folder)
+
+    try:
+        os.makedirs(upload_folder, exist_ok=True)
+    except Exception:
+        current_app.logger.exception("Could not create upload folder: %s", upload_folder)
+        flash("Server error creating upload folder. Contact admin.", "danger")
+        return redirect(url_for("dashboard.profile"))
+
     file_path = os.path.join(upload_folder, new_filename)
 
-    # Optional: delete old avatar if it's not the default
-    old_filename = current_user.avatar_filename
+    # Delete old avatar if it's not the default
+    old_filename = getattr(current_user, "avatar_filename", None)
     if old_filename and old_filename != "default.jpg":
         old_path = os.path.join(upload_folder, old_filename)
         if os.path.exists(old_path):
             try:
                 os.remove(old_path)
             except OSError:
-                pass
+                current_app.logger.exception("Failed to remove old avatar: %s", old_path)
 
-    # Save new file
-    file.save(file_path)
+    # Save new file with error handling
+    try:
+        file.save(file_path)
+        # double-check that the file exists on disk
+        if not os.path.exists(file_path):
+            raise IOError("file.save() completed but file not found on disk")
+        # optionally fsync to ensure write (usually unnecessary)
+        # with open(file_path, "rb+") as f:
+        #     os.fsync(f.fileno())
+    except Exception:
+        current_app.logger.exception("Failed to save uploaded avatar to %s", file_path)
+        flash("Failed to save the uploaded file to the server.", "danger")
+        return redirect(url_for("dashboard.profile"))
 
-    # Update user record
-    current_user.avatar_filename = new_filename
-    current_user.updated_at = datetime.utcnow()
-    db.session.commit()
+    # Update the user model and commit safely
+    try:
+        current_user.avatar_filename = new_filename
+        current_user.updated_at = datetime.utcnow()
+        db.session.add(current_user)
+        db.session.commit()
+    except Exception:
+        current_app.logger.exception("Database commit failed after avatar upload")
+        db.session.rollback()
+        # Optionally remove the file because DB didn't persist the change
+        try:
+            if os.path.exists(file_path):
+                os.remove(file_path)
+        except Exception:
+            current_app.logger.exception("Failed to remove orphaned avatar after DB error")
+        flash("Could not update profile (database error).", "danger")
+        return redirect(url_for("dashboard.profile"))
 
+    current_app.logger.info("Avatar updated for user %s -> %s", current_user.id, new_filename)
     flash("Profile picture updated.", "success")
     return redirect(url_for("dashboard.profile"))
+
 
 
 @dashboard_bp.route("/profile/delete", methods=["POST"])
 @login_required
 def delete_account():
-    user = current_user
+    # ----------------------------------------------------------------
+    # IMPORTANT: capture everything from current_user BEFORE calling
+    # logout_user(), because that turns current_user into an
+    # AnonymousUserMixin and all attribute access will crash.
+    # ----------------------------------------------------------------
+    user_id         = current_user.id
+    avatar_filename = current_user.avatar_filename
 
-    # Optional: simple confirmation field
-    confirm = request.form.get("confirm") or ""
-    if confirm.lower() != "delete":
+    confirm = (request.form.get("confirm") or "").strip().upper()
+    if confirm != "DELETE":
         flash("Type DELETE in the box to confirm account deletion.", "warning")
         return redirect(url_for("dashboard.profile"))
 
-    # Logout first
+    # Re-fetch a fresh User instance tied to this db session
+    from app.models import User, Expense, Reminder, CICalculation
+    user = db.session.get(User, user_id)   # SQLAlchemy 2.x compatible
+    if user is None:
+        # Fallback for older SQLAlchemy
+        user = db.session.query(User).filter_by(id=user_id).first()
+    if not user:
+        flash("User account not found.", "danger")
+        return redirect(url_for("public.index"))
+
+    # Log out first (Flask-Login session cleared)
     logout_user()
 
-    # Remove avatar file (if any and not default)
-    upload_folder = current_app.config["AVATAR_UPLOAD_FOLDER"]
-    if user.avatar_filename and user.avatar_filename != "default.jpg":
-        old_path = os.path.join(upload_folder, user.avatar_filename)
+    # Delete avatar file from disk
+    upload_folder = current_app.config.get("AVATAR_UPLOAD_FOLDER", "")
+    if avatar_filename and avatar_filename != "default.jpg" and upload_folder:
+        old_path = os.path.join(upload_folder, avatar_filename)
         if os.path.exists(old_path):
             try:
                 os.remove(old_path)
             except OSError:
                 pass
 
-    # Delete user record
-    db.session.delete(user)
+    # Expunge the user object so SQLAlchemy's cascade doesn't try to
+    # delete children that we're about to bulk-delete ourselves.
+    # This avoids "Instance is already deleted" errors.
+    db.session.expunge(user)
+
+    # Bulk-delete all child records (works even without DB-level cascade)
+    db.session.query(Expense).filter_by(user_id=user_id).delete(synchronize_session="fetch")
+    db.session.query(Reminder).filter_by(user_id=user_id).delete(synchronize_session="fetch")
+    db.session.query(CICalculation).filter_by(user_id=user_id).delete(synchronize_session="fetch")
+
+    # Re-fetch user cleanly after expunge and delete
+    user = db.session.query(User).filter_by(id=user_id).first()
+    if user:
+        db.session.delete(user)
+
     db.session.commit()
 
-    flash("Your account has been deleted.", "info")
+    flash("Your account has been permanently deleted.", "info")
     return redirect(url_for("public.index"))
+
+@dashboard_bp.route("/expenses/current_month")
+@login_required
+def expenses_current_month():
+    """Return today's saved expenses as JSON for the calculator."""
+    today = date.today()
+    rows = (
+        Expense.query
+        .filter(
+            Expense.user_id == current_user.id,
+            Expense.expense_date == today,
+        )
+        .order_by(Expense.id.asc())
+        .all()
+    )
+    items = [{"title": e.title or "", "amount": float(e.amount or 0)} for e in rows]
+    return jsonify({"items": items})
+
 
 @dashboard_bp.route("/expenses/save", methods=["POST"])
 @login_required
@@ -584,37 +674,71 @@ def calendar_events():
 @dashboard_bp.route("/calendar/add", methods=["POST"])
 @login_required
 def add_reminder():
-    title = request.form.get("title")
-    desc = request.form.get("description")
+    title = (request.form.get("title") or "").strip()
+    desc = (request.form.get("description") or "").strip()
     date_str = request.form.get("date")
+
+    if not title:
+        return jsonify({"status": "error", "message": "Title is required"}), 400
 
     try:
         date_obj = datetime.fromisoformat(date_str)
-    except:
+    except Exception:
         return jsonify({"status": "error", "message": "Invalid date"}), 400
 
     new_r = Reminder(
         user_id=current_user.id,
         title=title,
-        description=desc,
+        description=desc or None,
         reminder_date=date_obj,
     )
     db.session.add(new_r)
     db.session.commit()
 
-    return jsonify({"status": "success"})
+    return jsonify({
+        "status": "success",
+        "reminder": {
+            "id": new_r.id,
+            "title": new_r.title,
+            "description": new_r.description or "",
+            "reminder_date_display": new_r.reminder_date.strftime("%d %b %Y, %I:%M %p"),
+            "reminder_date_badge": new_r.reminder_date.strftime("%d %b"),
+            "reminder_date_iso": new_r.reminder_date.isoformat(),
+        }
+    })
 
 @dashboard_bp.route("/calendar/edit/<int:id>", methods=["POST"])
 @login_required
 def edit_reminder(id):
     reminder = Reminder.query.filter_by(id=id, user_id=current_user.id).first_or_404()
 
-    reminder.title = request.form.get("title")
-    reminder.description = request.form.get("description")
-    reminder.reminder_date = datetime.fromisoformat(request.form.get("date"))
+    title    = (request.form.get("title")       or "").strip()
+    desc     = (request.form.get("description") or "").strip()
+    date_str = request.form.get("date")
 
+    if not title:
+        return jsonify({"status": "error", "message": "Title is required"}), 400
+
+    try:
+        reminder.reminder_date = datetime.fromisoformat(date_str)
+    except Exception:
+        return jsonify({"status": "error", "message": "Invalid date"}), 400
+
+    reminder.title       = title
+    reminder.description = desc or None
     db.session.commit()
-    return jsonify({"status": "success"})
+
+    return jsonify({
+        "status": "success",
+        "reminder": {
+            "id": reminder.id,
+            "title": reminder.title,
+            "description": reminder.description or "",
+            "reminder_date_display": reminder.reminder_date.strftime("%d %b %Y, %I:%M %p"),
+            "reminder_date_badge":   reminder.reminder_date.strftime("%d %b"),
+            "reminder_date_iso":     reminder.reminder_date.isoformat(),
+        }
+    })
 
 @dashboard_bp.route("/calendar/delete/<int:id>", methods=["POST"])
 @login_required
